@@ -1,0 +1,51 @@
+    <!-- <h3>Nominal Point</h3> -->
+
+    <table>
+        <tr>
+            <th>Quantity</th>
+            <th>Formula</th>
+            <th>Result</th>
+        </tr>
+
+        <tr>
+            <td>Nominal input voltage</td>
+            <td>\( V_{s,nom} = \frac{V_{s,max} + V_{s,min}}{2} \)</td>
+            <td>{{ Vs_nom }} V</td>
+        </tr>
+
+        <tr>
+            <td>Nominal output voltage</td>
+            <td>\( V_{o,nom} = \frac{V_{o,max} + V_{o,min}}{2} \)</td>
+            <td>{{ Vo_nom }} V</td>
+        </tr>
+
+        <tr>
+            <td>Nominal output power</td>
+            <td>\( P_{o,nom} = 0.5 \cdot P_{o,max} \)</td>
+            <td>{{ Po_nom }} W</td>
+        </tr>
+
+        <tr>
+            <td>Nominal duty cycle</td>
+            <td>\( D_{nom} = 1 - \frac{V_{s,nom}}{V_{o,nom}} \)</td>
+            <td>{{ D_nom }}</td>
+        </tr>
+
+        <tr>
+            <td>Nominal inductor average current</td>
+            <td>\( I_{L,avg,nom} = \frac{P_{o,nom}}{V_{s,nom} \cdot \eta} \)</td>
+            <td>{{ IL_avg_nom }} A</td>
+        </tr>
+
+        <tr>
+            <td>Nominal inductor ripple</td>
+            <td>\( \Delta I_{L,nom} = 0.3 \cdot I_{L,avg,nom} \)</td>
+            <td>{{ delta_IL_nom }} A</td>
+        </tr>
+
+        <tr>
+            <td>Nominal inductance</td>
+            <td>\( L_{nom} = \frac{V_{s,nom} \cdot D_{nom}}{\Delta I_{L,nom} \cdot f} \)</td>
+            <td>{{ L_nom }} H</td>
+        </tr>
+    </table>

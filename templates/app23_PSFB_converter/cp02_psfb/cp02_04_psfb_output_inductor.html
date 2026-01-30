@@ -1,0 +1,67 @@
+<h2>4. Output Inductor Design</h2>
+
+<h3>4.1. Output Inductor Value Calculation</h3>
+
+<h4>4.1.1. Minimum nominal current</h4>
+
+$$
+I_{o,\min} = (10 \between 30)\ \% \cdot I_o = {{results.Io_min_calc}} A 
+$$
+
+<h4>4.1.2. Output inductor ripple</h4>
+
+$$
+\Delta i_{L_o} = 2 \cdot I_{o,\min} = {{results.delta_I_Lo}} A 
+$$
+
+<h4>4.1.3. Output inductor</h4>
+
+$$
+L_o = \frac{V_{in} \cdot (N_s / N_p) \cdot D \cdot (1-D)}{\Delta i_{L_o} \cdot F_{sw}} = {{results.Lo_uH}} uH 
+$$
+
+<h3> 4.2. Peak and RMS Inductor Current Calculation</h3>
+
+The maximum values $I_{L_o, \max}$ and minimum values $I_{L_o, \min}$ of the current through the output inductors:
+
+$$
+I_{L_o, \max} = \frac{I_o}{2} + \frac{\Delta i_{L_o}}{2} = {{results.I_Lo_max}} A 
+$$
+
+$$
+I_{L_o, \min} = \frac{I_o}{2} - \frac{\Delta i_{L_o}}{2} = {{results.I_Lo_min}} A 
+$$
+
+<h4>4.2.1. RMS current through the output inductors</h4>
+
+$$
+I_{L_o, rms} = \sqrt{\frac{I_{L_o, \min}^2 + I_{L_o, \max}^2 + I_{L_o, \min} \cdot I_{L_o, \max}}{3}} = {{results.I_Lo_RMS}} A 
+$$
+
+<h3> 4.3. Magnetic Core Selection and Maximum Flux Density Calculation</h3>
+
+Material: $3C90$
+
+Maximum flux density in the magnetic core:
+
+$$
+B_{\max} = \frac{L_o \cdot I_{L_o, \max}}{N_{L_o} \cdot A_c} = {{results.B_max_T}} T 
+$$
+
+<ol>
+    <li>$N_{L_o}$ - number of inductor turns</li>
+    <li>$I_{L_o, \max}$ - peak current</li>
+    <li>$A_c$ - effective cross-sectional area of the magnetic core</li>
+</ol>
+
+
+
+$$
+A_c = \frac{L_o \cdot I_{L_o, \max}}{N_{L_o} \cdot B_{\max}} = {{results.Ac_ferita_mm2}} cm^2
+$$
+
+$$
+A_{c_{\min}} = \frac{L_o \cdot I_{L_o, \max}}{N_{L_o} \cdot B_{sat}} = {{results.Ac_min_mm2}} cm^2 
+$$
+
+

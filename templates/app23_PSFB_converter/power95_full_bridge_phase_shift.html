@@ -1,0 +1,40 @@
+{% extends 'main.html'%}
+{% load static %}
+{% block content %}
+    {% include './form_psfb.css'%}
+    <div class="container">
+        <br>
+        <div class="section--header">
+            <h3 class="title" data-title="Power Electronics"> Phase-Shifted Full-Bridge Converter </h3>
+            <p><a style="color: var(--primary-900);" href="{% url 'power_home' %}">Go to Power Electronics Page</a></p>
+            <p><a style="color: var(--primary-900);" href="{% url 'home' %}">Go to main page</a></p>
+        </div>
+        
+        <div class="section--content">
+            <div class="galerie-magnetic">
+                <figure class="figura-magnetic">
+                    <a href="{% static './images/power_psfb/Schema_bloc_a_convertorului.png'  %}" target="_blank">
+                    <img class="imagini-ltspice" src="{% static './images/power_psfb/Schema_bloc_a_convertorului.png' %}" alt="psfb_converter">
+                    </a>
+                    <!-- <figcaption> Boost Converter (XL6019)  </figcaption> -->
+                </figure>
+                <figure class="figura-magnetic">
+                    <a href="{% static './images/power_psfb/psfb_schematic_electric.png'  %}" target="_blank">
+                    <img class="imagini-ltspice" src="{% static './images/power_psfb/psfb_schematic_electric.png' %}" alt="boost_xl6019">
+                    </a>
+                    <!-- <figcaption> Schematic - Boost Converter (XL6019)   </figcaption> -->
+                </figure>
+            </div>
+        </div>
+        <h1>  Introduction  </h1>
+        {% include './cp01_psfb_toloplogies/cp01_00_capitolul01.html'%}
+        <h1>  1. Dimensioning of power components and efficiency calculation </h1>
+        {% include './cp02_psfb/cp02_00_psfb_capitolul02.html'%}
+        <h1> 2. Circuit simulations </h1>
+        {% include './cp02_simulation_psfb/cp02_00_simulations.html'%}
+        <h1>  3. Magnetic design </h1>
+        {% include './cp03_magnetic_design/cp03_00_magnetic_design.html'%}
+        <h1>4. Prototype Considerations </h1>
+        {% include './cp04_prototype/cp04_00_prototype.html'%}
+    </div>
+{% endblock %}

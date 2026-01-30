@@ -1,0 +1,433 @@
+<h2>2. Power Transformer Turns Ratio Calculation</h2>
+
+<div>
+    $$
+    V_o = V_{in} \cdot \frac{N_s}{N_p} \cdot D \Rightarrow \frac{N_p}{N_s} = \frac{V_{in}}{V_o} \cdot D
+    $$
+
+    $$
+    \frac{N_p}{N_s} = \frac{V_{in, \min}}{V_{o, \max}} \cdot D_{\max}= {{ results.N_ratio_max}}
+    $$
+</div>
+
+<h2>3. Derivation of Ideal and Effective Duty Cycle</h2>
+
+$$
+D = \frac{V_o}{V_{in}} \cdot \frac{N_p}{N_s} = {{ results.D_ideal}}
+$$
+
+<h3>3.1. Voltage drop across the leakage inductance</h3>
+
+$$
+\delta V_{L_k} = L_k \cdot I_o \cdot \frac{N_s}{N_p} \cdot F_{sw}= {{results.delta_V_Lk}} V 
+$$
+
+<h3>3.2. Voltage drop due to the resistance of the transformer windings</h3>
+
+$$
+\delta V_{TR} = I_o \cdot \left( \frac{N_s}{N_p} \cdot R_{prim} + \frac{N_p}{N_s} \cdot R_{sec} \right) = {{results.delta_V_TR}} V 
+$$
+
+<h3>3.3. Voltage drop across the switching semiconductor elements (MOSFET)</h3>
+
+$$
+\delta V_{R_{dson}} = I_o \cdot \left( \frac{N_s}{N_p} \cdot 2 \cdot R_{dson_{PR}} + \frac{N_p}{N_s} \cdot R_{dson_{SR}} \right) = {{results.delta_V_Rdson}} V 
+$$
+
+<h3>3.4. Voltage drop across the series resistance</h3>
+
+$$
+\delta V_o = \frac{I_o}{2} \cdot R_{L_o} = {{results.delta_V_Lo}} V 
+$$
+
+<h3>3.5. Effective duty cycle ratio</h3>
+
+$$
+D_{eff} = \frac{V_o + \delta V_o}{V_{in} - \delta V_{L_k} - \delta V_{TR} - \delta V_{R_{dson}}} \cdot \frac{N_p}{N_s}= {{results.D_eff}}
+$$
+
+<h3>3.6. Theoretical maximum effective duty cycle ratio (worst-case scenario)</h3>
+
+$$
+D_{eff,\max} = \frac{V_{o,\max} + \delta V_o}{V_{in,\min} - \delta V_{L_k} - \delta V_{TR} - \delta V_{R_{dson}}} \cdot \frac{N_p}{N_s} = {{results.D_eff_max}}
+$$
+
+<h2>4. Output Inductor Design</h2>
+
+<h3>4.1. Output Inductor Value Calculation</h3>
+
+<h4>4.1.1. Minimum nominal current</h4>
+
+$$
+I_{o,\min} = (10 \between 30)\ \% \cdot I_o = {{results.Io_min_calc}} A 
+$$
+
+<h4>4.1.2. Output inductor ripple</h4>
+
+$$
+\Delta i_{L_o} = 2 \cdot I_{o,\min} = {{results.delta_I_Lo}} A 
+$$
+
+<h4>4.1.3. Output inductor</h4>
+
+$$
+L_o = \frac{V_{in} \cdot (N_s / N_p) \cdot D \cdot (1-D)}{\Delta i_{L_o} \cdot F_{sw}} = {{results.Lo_uH}} uH 
+$$
+
+<h3> 4.2. Peak and RMS Inductor Current Calculation</h3>
+
+The maximum values $I_{L_o, \max}$ and minimum values $I_{L_o, \min}$ of the current through the output inductors:
+
+$$
+I_{L_o, \max} = \frac{I_o}{2} + \frac{\Delta i_{L_o}}{2} = {{results.I_Lo_max}} uH 
+$$
+
+$$
+I_{L_o, \min} = \frac{I_o}{2} - \frac{\Delta i_{L_o}}{2} = {{results.I_Lo_min}} uH 
+$$
+
+<h4>4.2.1. RMS current through the output inductors</h4>
+
+$$
+I_{L_o, rms} = \sqrt{\frac{I_{L_o, \min}^2 + I_{L_o, \max}^2 + I_{L_o, \min} \cdot I_{L_o, \max}}{3}} = {{results.I_Lo_RMS}} A 
+$$
+
+<h3> 4.3. Magnetic Core Selection and Maximum Flux Density Calculation</h3>
+
+Material: $3C90$
+
+Maximum flux density in the magnetic core:
+
+$$
+B_{\max} = \frac{L_o \cdot I_{L_o, \max}}{N_{L_o} \cdot A_c} = {{results.B_max_T}} T 
+$$
+
+<ol>
+    <li>$N_{L_o}$ - number of inductor turns</li>
+    <li>$I_{L_o, \max}$ - peak current</li>
+    <li>$A_c$ - effective cross-sectional area of the magnetic core</li>
+</ol>
+
+
+
+$$
+A_c = \frac{L_o \cdot I_{L_o, \max}}{N_{L_o} \cdot B_{\max}} = {{results.Ac_ferita_mm2}} cm^2
+$$
+
+$$
+A_{c_{\min}} = \frac{L_o \cdot I_{L_o, \max}}{N_{L_o} \cdot B_{sat}} = {{results.Ac_min_mm2}} cm^2 
+$$
+
+<h2>5. Secondary-Side Power Switch Design</h2>
+
+<h3>5.1. Maximum and RMS Current Calculation in the Secondary Circuit</h3>
+
+<h4>During the conduction period [0, DT]</h4>
+
+$$
+\Delta i_{L_1} = \frac{V_{in} \cdot \frac{N_s}{N_p} - V_o}{L_o} \cdot \frac{D}{F_{sw}} = {{results.delta_i_L10}} A 
+$$
+
+$$
+\Delta i_{L_2} = -\frac{V_o}{L_o} \cdot \frac{D}{F_{sw}} = {{results.delta_i_L20}} A 
+$$
+
+$$
+\Delta i_{SR} = \Delta i_{L_1} + \Delta i_{L_2} = {{results.delta_i_SR0}} A 
+$$
+
+$$
+I_{SR, \min} = I_o - \frac{\Delta i_{SR}}{2} = {{results.I_SR_min0}} A 
+$$
+
+$$
+I_{SR, \max} = I_o + \frac{\Delta i_{SR}}{2} = {{results.I_SR_max0}} A 
+$$
+
+$$
+I_{SR, RMS, ON} = \sqrt{\frac{I_{SR, \min}^2 + I_{SR, \max}^2 + I_{SR, \min} \cdot I_{SR, \max}}{3}} = {{results.I_SR_RMS_ON}} A 
+$$
+
+<h4>During the conduction period [0, (0.5-D)T]</h4>
+
+$$
+\Delta i_{L_1} = \Delta i_{L_2} = \frac{V_o}{2 \cdot L_o} \cdot \frac{0.5-D}{F_{sw}} = {{results.delta_i_L11}} A 
+$$
+
+$$
+\Delta i_{SR} = \Delta i_{L_1} + \Delta i_{L_2} = {{results.delta_i_L21}} A 
+$$
+
+$$
+I_{SR, \min} = I_o - \frac{\Delta i_{SR}}{2} = {{results.I_SR_min1}} A 
+$$
+
+$$
+I_{SR, \max} = I_o + \frac{\Delta i_{SR}}{2} = {{results.I_SR_max1}} A 
+$$
+
+$$
+I_{SR, RMS, FW} = \sqrt{\frac{I_{SR, \min}^2 + I_{SR, \max}^2 + I_{SR, \min} \cdot I_{ SR, \max }}{3}} = {{results.I_SR_RMS_FW}} A 
+$$
+
+$$
+I_{SR,RMS} = \sqrt{D \cdot I_{SR,RMS,ON}^2 + (0.5 - D) \cdot I_{SR,RMS, FW}^2} = {{results.I_SR_RMS}} A 
+$$
+
+<h3>Synchronous Rectifier Power Switch Selection</h3>
+
+<p>[Aici poți adăuga textul sau tabelul de selecție a MOSFET-urilor sincron dacă ai]</p>
+
+<h2>6. Primary-Side Power Switch Design</h2>
+
+<h3>Current Calculation Through Primary-Side Power Switches</h3>
+
+Magnetizing current:
+
+$$
+I_m = \frac{V_{in}}{L_p} \cdot \frac{D}{F_{sw}} = {{results.Im}} A 
+$$
+
+<h4>During the conduction interval [0,DT]</h4>
+
+Primary current (minimum and maximum):
+
+$$
+I_{p_{\min}} = I_{L_{o,\min}} \cdot \frac{N_s}{N_p} - \frac{I_m}{2} = {{results.I_p_min}} A 
+$$
+
+$$
+I_{p_{\max}} = I_{L_{o,\max}} \cdot \frac{N_s}{N_p} + \frac{I_m}{2} = {{ results.I_p_max}} A 
+$$
+
+<ol>
+    <li>$I_{L_{o,\min}}$ - minimum current through the output inductor</li> 
+    <li>$I_{L_{o,\max}}$ - maximum current through the output inductor</li> 
+</ol>
+
+RMS value of the current during the interval [0,DT]:
+
+$$
+I_{p_{rms,ON}} = \sqrt{\frac{I_{p_{\min}}^2 + I_{p_{\max}}^2 + I_{p_{\min}} \cdot I_{p_{\max}}}{3}} = {{ results.I_p_rms_on}} A 
+$$
+
+<h4>During the freewheeling interval [0,(0.5-D)T]</h4>
+
+$$
+I_{p_{min},2} = I_{p_{\max}} \cdot e^{-\frac{R_e}{L_k} \cdot (0.5-D) \cdot T} + \frac{I_m}{2} = {{ results.I_p_min_2}} A 
+$$
+
+<ol>
+    <li>$$L_k$$ - leakage inductance</li>
+    <li>$$R_e$$ - sum of equivalent resistances referred to the primary side</li>
+</ol>
+
+$$
+R_e = 2 \cdot R_{dson_{PR}} + R_{prim} + \left( R_{sec} + 2 \cdot R_{dson_{SR}} \right) \cdot \left( \frac{N_p}{N_s} \right)^2  = {{ results.Re_mOhm}} m \Omega
+$$
+
+RMS value of the current during the freewheeling interval [0,(0.5-D)T]:
+
+$$
+I_{p_{rms,FW}} = \sqrt{\frac{I_{p_{\min},2}^2 + I_{p_{\max}}^2 + I_{p_{\min},2} \cdot I_{p_{\max}}}{3}} = {{ results.I_p_rms_FW}} A 
+$$
+
+RMS current value through the primary-side power static switches:
+
+$$
+I_{PR,RMS} = \sqrt{D \cdot I_{p_{rms,ON}}^2 + (0.5 - D) \cdot I_{p_{rms,FW}}^2} = {{ results.I_PR_RMS}} A 
+$$
+
+RMS current in the primary winding of the transformer (2 half-cycles during one switching period):
+
+$$
+I_{p_{RMS}} = \sqrt{I_{p_{rms,ON}}^2 + I_{p_{rms,FW}}^2} = {{ results.I_p_RMS}} A 
+$$
+
+<h3>Primary-Side Power Switch Selection</h3>
+
+<p>[Aici poți adăuga selecția MOSFET-urilor primare dacă ai date]</p>
+
+<h2>7. Available Energy Calculation in Leakage Inductance</h2>
+
+Energy stored in the parasitic capacitances on the primary side:
+
+$$
+E_{cap} = \frac{1}{2} \left( 2 \cdot C_{oss} + C_{tr} \right) \cdot V_{in, \max}^2 = {{ results.E_cap_uJ}} \mu C 
+$$
+
+<ol>
+    <li>$$C_{oss}$$ - drain-source parasitic capacitance</li>
+    <li>$$C_{tr}$$ - estimated parasitic capacitance of the transformer</li>
+    <li>$$V_{in, \max}$$ - maximum input voltage of the converter</li>
+</ol>
+
+Energy stored in the leakage inductance:
+
+$$
+E_k = \frac{1}{2} \cdot L_k \cdot I_{p_{\min},2}^2 = {{ results.E_k_uJ}} \mu C
+$$
+
+<h2>8. Output Capacitor Calculation</h2>
+
+Maximum ripple of the current through the output capacitor:
+
+$$
+\delta I_{C_o} = \Delta i_{L_1} + \Delta i_{L_2} = {{ results.delta_I_Co}} A 
+$$
+
+Minimum required capacitance:
+
+$$
+C_{o, \min} = \frac{\delta I_{C_o}}{8 \cdot \Delta V_{s} \cdot F_{sw} \cdot 2} = {{ results.Co_min_uF}} \mu F
+$$
+
+<h2>Converter Loss Analysis</h2>
+
+<h3>9. Output Inductor Losses</h3>
+
+Power losses in the output inductors:
+
+$$
+P_{L_o} = P_{DCR,L_o} + P_{core,L_o} = {{ results.P_Lo}} W 
+$$
+
+Power dissipated due to the DC winding resistance of the inductor:
+
+$$
+P_{DCR, L_o} = I_{L_o, rms}^2 \cdot R_{L_o} = {{ results.P_DCR_Lo}} 
+$$
+
+Modified Steinmetz Equation:
+
+$$
+P_{MSE} = C_m \cdot F_{eq}^x \hat{B}^y = {{ results.P_MSE_mW_cm3}} \frac{m W}{ cm^3 }
+$$
+
+AC component of the flux density in the magnetic core:
+
+$$
+\Delta B_{L_o, ac} = \frac{V_{in} \cdot \frac{N_s}{N_p} - V_o}{N_{L_o} A_c} \cdot \frac{D}{F_{sw}} = {{ results.delta_B_ac_T}} ~ T
+$$
+
+Equivalent frequency for arbitrary (non-sinusoidal) current waveforms (rectangular, PWM):
+
+$$
+f_{eq} = \frac{2}{\pi^2} \cdot F_{sw} \cdot \frac{1}{D \cdot (1-D)} = {{ results.f_eq_kHz}} ~ kHz 
+$$
+
+Specific losses per volume:
+
+$$
+P_{MSE} = C_m \cdot f_{eq}^2 \frac{\Delta B_{L_o,ac}^y}{2} \cdot \frac{mW}{cm^3} = {{ results.P_MSE_mW_cm3}} ~ \frac{m W}{ cm^3 }
+$$
+
+Power loss in the magnetic core:
+
+$$
+P_{core,L_o} = P_{MSE} \cdot V_c = {{ results.P_core_Lo}} ~ W 
+$$
+
+<h3>Primary-Side Power Switch Losses</h3>
+
+Primary-side power static switches:
+
+$$
+P_{PR} = P_{cond, PR} + P_{sw,PR} = {{ results.P_PR}} ~ W
+$$
+
+Conduction losses on one primary-side power static switch:
+
+$$
+P_{cond, PR} = I_{PR,RMS}^2 \cdot R_{dson,PR} = {{ results.P_cond_PR}} ~ W 
+$$
+
+Switching losses:
+
+$$
+P_{sw,PR} = \frac{1}{8} \cdot \left( 2 \cdot C_{oss} + C_{tr} \right) \cdot V_{in}^2 \cdot F_{sw} = {{ results.P_sw_PR}} ~ W 
+$$
+
+<h3>Secondary-Side Power Switch Losses</h3>
+
+Conduction losses:
+
+$$
+P_{cond, SR} = I_{SR, RMS}^2 \cdot R_{dson, SR} = {{ results.P_cond_SR}}
+$$
+
+Switching power loss:
+
+$$
+P_{sw,SR} = \frac{1}{2} \cdot C_{oss,SR} \cdot \left( V_{in} \cdot \frac{N_s}{N_p} \right) \cdot F_{sw} = {{ results.P_sw_SR}}
+$$
+
+Total losses for one rectifier branch:
+
+$$
+P_{SR} = P_{cond, SR} + 2 \cdot P_{sw,SR} = {{ results.P_SR}}
+$$
+
+<h3>Power Transformer Losses</h3>
+
+Power dissipated in the primary winding resistance $R_{prim}$:
+
+$$
+P_{t_{res,prim}} = I_{p_{RMS}}^2 \cdot R_{prim} = {{ results.Pt_res_prim}}
+$$
+
+Losses due to the secondary winding resistance $R_{sec}$:
+
+$$
+P_{t_{res,sec}} = I_{L_o, rms}^2 \cdot R_{sec} = {{ results.Pt_res_sec}}
+$$
+
+Peak flux density in the magnetic core:
+
+$$
+\hat{B} = \frac{V_{in} \cdot D}{2 \cdot N_p \cdot A_e \cdot F_{sw}} = {{ results.B_hat_T}}
+$$
+
+Specific losses (per volume):
+
+$$
+P_{MSE} = C_m \cdot f_{eq}^2 \frac{\Delta B_{L_o,ac}^y}{2} \cdot \frac{mW}{cm^3} = {{ results.P_MSE_tr_mW}}
+$$
+
+Power losses in the transformer magnetic core:
+
+$$
+P_{t_{core}} = P_{MSE} \cdot V_c = {{ results.Pt_core}}
+$$
+
+Total transformer losses:
+
+$$
+P_t = P_{t_{res,prim}} + P_{t_{res,sec}} + P_{t_{core}} = {{ results.Pt}}
+$$
+
+<h3>Control Circuit Power Consumption</h3>
+
+$$
+P_{DRV} = V_{cc} \left( 4 \cdot Q_{g_{PR}} + 4 \cdot Q_{g_{SR}} \right) \cdot F_{sw} = {{ results.P_DRV}}
+$$
+
+<h3>Losses Due to Voltage Stress Limiting Circuits</h3>
+
+$$
+P_{snubber} = 2 \cdot C_s \cdot \left( V_{in} \cdot \frac{N_s}{N_p} \right)^2 \cdot F_{sw} = {{ results.P_snubber}}
+$$
+
+<h2>Loss Breakdown and Efficiency Calculation</h2>
+
+$$
+P_d = 2 \cdot P_{L_o} + 4 \cdot P_{PR} + 2 \cdot P_{SR} + P_t + P_{DRV} + P_{snubber} = {{ results.Pd_total}}
+$$
+
+$$
+\eta \% = {{ results.eta_percent}}
+$$
+<h2>10. Conclusions</h2>
+
+<p>[Aici introduci concluziile tale finale]</p>
+

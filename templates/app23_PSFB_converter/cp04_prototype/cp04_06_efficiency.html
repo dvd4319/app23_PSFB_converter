@@ -1,0 +1,23 @@
+
+{% load static %}    
+<p>
+Figure 6.5 shows the converter’s efficiency as a function of output current for three different input voltages: minimum, nominal, and maximum.
+</p>
+
+ 
+      <div class="section--content">
+                <figure class="figura-magnetic">
+                    <a href="{% static './images/power_psfb/masuratori_randament.png'  %}" target="_blank">
+                    <img class="imagini-ltspice" src="{% static './images/power_psfb/masuratori_randament.png' %}" alt="psfb_randament">
+                    </a>
+                    <figcaption> Converter Efficiency at Different Input Voltages and Output Currents  </figcaption>
+                </figure>
+        </div>
+
+<p>
+As can be seen, the converter operates with a single module up to an output current of 100A, while the second module is activated for higher currents. When the output exceeds 100A, using both modules in parallel results in higher efficiency compared to operating with only one module. This dual-module operation is crucial for meeting efficiency targets, especially at currents below the nominal rating of a single module.
+</p>
+
+<p>
+Another key observation is the dependence of efficiency on the input voltage. Analysis shows that the maximum efficiency of 93.5% is reached at the minimum input voltage and an output current of 70A. A secondary efficiency peak of approximately 93% occurs around an output current of 140A. Beyond this point, the efficiency gradually decreases, reaching about 91.5% in the worst-case scenario, at nominal current and maximum input voltage.
+</p>

@@ -1,0 +1,136 @@
+<h2>9 Converter Loss Analysis</h2>
+
+<h3>9.1. Output Inductor Losses</h3>
+
+Power losses in the output inductors:
+
+$$
+P_{L_o} = P_{DCR,L_o} + P_{core,L_o} = {{ results.P_Lo}} ~ W 
+$$
+
+Power dissipated due to the DC winding resistance of the inductor:
+
+$$
+P_{DCR, L_o} = I_{L_o, rms}^2 \cdot R_{L_o} = {{ results.P_DCR_Lo}} ~ W 
+$$
+
+Modified Steinmetz Equation:
+
+$$
+P_{MSE} = C_m \cdot F_{eq}^x \hat{B}^y = {{ results.P_MSE_mW_cm3}} \frac{m W}{ cm^3 }
+$$
+
+AC component of the flux density in the magnetic core:
+
+$$
+\Delta B_{L_o, ac} = \frac{V_{in} \cdot \frac{N_s}{N_p} - V_o}{N_{L_o} A_c} \cdot \frac{D}{F_{sw}} = {{ results.delta_B_ac_T}} ~ T
+$$
+
+Equivalent frequency for arbitrary (non-sinusoidal) current waveforms (rectangular, PWM):
+
+$$
+f_{eq} = \frac{2}{\pi^2} \cdot F_{sw} \cdot \frac{1}{D \cdot (1-D)} = {{ results.f_eq_kHz}} ~ kHz 
+$$
+
+Specific losses per volume:
+
+$$
+P_{MSE} = C_m \cdot f_{eq}^2 \frac{\Delta B_{L_o,ac}^y}{2} \cdot \frac{mW}{cm^3} = {{ results.P_MSE_mW_cm3}} ~ \frac{m W}{ cm^3 }
+$$
+
+Power loss in the magnetic core:
+
+$$
+P_{core,L_o} = P_{MSE} \cdot V_c = {{ results.P_core_Lo}} ~ W 
+$$
+
+<h3> 9.2. Primary-Side Power Switch Losses</h3>
+
+Primary-side power static switches:
+
+$$
+P_{PR} = P_{cond, PR} + P_{sw,PR} = {{ results.P_PR}} ~ W
+$$
+
+Conduction losses on one primary-side power static switch:
+
+$$
+P_{cond, PR} = I_{PR,RMS}^2 \cdot R_{dson,PR} = {{ results.P_cond_PR}} ~ W 
+$$
+
+Switching losses:
+
+$$
+P_{sw,PR} = \frac{1}{8} \cdot \left( 2 \cdot C_{oss} + C_{tr} \right) \cdot V_{in}^2 \cdot F_{sw} = {{ results.P_sw_PR}} ~ W 
+$$
+
+<h3>9.3. Secondary-Side Power Switch Losses</h3>
+
+Conduction losses:
+
+$$
+P_{cond, SR} = I_{SR, RMS}^2 \cdot R_{dson, SR} = {{ results.P_cond_SR}}
+$$
+
+Switching power loss:
+
+$$
+P_{sw,SR} = \frac{1}{2} \cdot C_{oss,SR} \cdot \left( V_{in} \cdot \frac{N_s}{N_p} \right) \cdot F_{sw} = {{ results.P_sw_SR}} ~ W
+$$
+
+Total losses for one rectifier branch:
+
+$$
+P_{SR} = P_{cond, SR} + 2 \cdot P_{sw,SR} = {{ results.P_SR}} ~ W 
+$$
+
+<h3>9.4. Power Transformer Losses</h3>
+
+Power dissipated in the primary winding resistance $R_{prim}$:
+
+$$
+P_{t_{res,prim}} = I_{p_{RMS}}^2 \cdot R_{prim} = {{ results.Pt_res_prim}} ~ W 
+$$
+
+Losses due to the secondary winding resistance $R_{sec}$:
+
+$$
+P_{t_{res,sec}} = I_{L_o, rms}^2 \cdot R_{sec} = {{ results.Pt_res_sec}} ~ W
+$$
+
+Peak flux density in the magnetic core:
+
+$$
+\hat{B} = \frac{V_{in} \cdot D}{2 \cdot N_p \cdot A_e \cdot F_{sw}} = {{ results.B_hat_T}} ~ T
+$$
+
+Specific losses (per volume):
+
+$$
+P_{MSE} = C_m \cdot f_{eq}^{x} \cdot \Delta \hat{B}_{L_o,ac}^y \cdot \frac{mW}{cm^3} = {{ results.P_MSE_tr_mW}} ~  \frac{mW}{cm^3}
+$$
+
+Power losses in the transformer magnetic core:
+
+$$
+P_{t_{core}} = P_{MSE} \cdot V_c = {{ results.Pt_core}} ~ W
+$$
+
+Total transformer losses:
+
+$$
+P_t = P_{t_{res,prim}} + P_{t_{res,sec}} + P_{t_{core}} = {{ results.Pt}} ~ W
+$$
+
+<h3> 9.5. Control Circuit Power Consumption</h3>
+
+$$
+P_{DRV} = V_{cc} \left( 4 \cdot Q_{g_{PR}} + 4 \cdot Q_{g_{SR}} \right) \cdot F_{sw} = {{ results.P_DRV}} ~ W 
+$$
+
+<h3> 9.6. Losses Due to Voltage Stress Limiting Circuits</h3>
+
+$$
+P_{snubber} = 2 \cdot C_s \cdot \left( V_{in} \cdot \frac{N_s}{N_p} \right)^2 \cdot F_{sw} = {{ results.P_snubber}} ~ W 
+$$
+

@@ -1,0 +1,91 @@
+{% load static %}
+<table border="1">
+    <caption> Specifications of the Phase-Shift Full-Bridge DC-DC Converter</caption>
+    <thead>
+        <tr>
+            <th>Specification</th>
+            <th>Symbol</th>
+            <th>Module 1</th>
+            <th>Module 2</th>
+            <th>Module 1 + 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Nominal Output Power</td>
+            <td>P<sub>o</sub></td>
+            <td>1.6 kW</td>
+            <td>1.6 kW</td>
+            <td>3.2 kW</td>
+        </tr>
+        <tr>
+            <td>Input Voltage</td>
+            <td>V<sub>in</sub></td>
+            <td colspan="3">345 V (260 V – 420 V)</td>
+        </tr>
+        <tr>
+            <td>Output Voltage</td>
+            <td>V<sub>o</sub></td>
+            <td colspan="3">14 V (12 V – 16 V)</td>
+        </tr>
+        <tr>
+            <td>Output Current</td>
+            <td>I<sub>o</sub></td>
+            <td>115 A</td>
+            <td>115 A</td>
+            <td>230 A</td>
+        </tr>
+        <tr>
+            <td>Magnetizing Inductance</td>
+            <td>L<sub>p</sub></td>
+            <td colspan="3">100 μH</td>
+        </tr>
+        <tr>
+            <td rowspan="3">Efficiency</td>
+            <td rowspan="3">η</td>
+            <td colspan="3">90% @ I<sub>o</sub> = 0.2 · I<sub>n</sub></td>
+        </tr>
+        <tr>
+            <td colspan="3">94% @ I<sub>o</sub> = 0.5 · I<sub>n</sub></td>
+        </tr>
+        <tr>
+            <td colspan="3">92% @ I<sub>o</sub> = 1.0 · I<sub>n</sub></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="section--content">
+    <div class="galerie-magnetic">
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/EI38_MAG/PExprt_04_Full_Bridge_waveform.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/EI38_MAG/PExprt_04_Full_Bridge_waveform.png' %}" alt="boost_xl6019">
+            </a>
+            <figcaption> Input data (PExprt)  </figcaption>
+        </figure>
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/EI38_MAG/PExprt_04_Full_Bridge_design_input.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/EI38_MAG/PExprt_04_Full_Bridge_design_input.png' %}" alt="boost_xl6019">
+            </a>
+            <figcaption>    </figcaption>
+        </figure>
+    </div>
+</div>
+
+
+<div class="section--content">
+    <div class="galerie-magnetic">
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/EI38_MAG/PExprt_02_Full_Bridge_primary_Vp_Ip.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/EI38_MAG/PExprt_02_Full_Bridge_primary_Vp_Ip.png' %}" alt="boost_xl6019">
+            </a>
+            <figcaption>  </figcaption>
+        </figure>
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/EI38_MAG/PExprt_08_Full_Bridge_design_curent_magnetizare.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/EI38_MAG/PExprt_08_Full_Bridge_design_curent_magnetizare.png' %}" alt="boost_xl6019">
+            </a>
+            <figcaption>    </figcaption>
+        </figure>
+    </div>
+</div>

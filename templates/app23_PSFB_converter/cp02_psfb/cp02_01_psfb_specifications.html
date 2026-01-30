@@ -1,0 +1,112 @@
+<h2>1. Converter Specifications</h2>
+
+<div>
+    <form method="POST" class="power-inductor-form">
+    {% csrf_token %}
+
+    <h3>Design Specifications (Basic)</h3>
+    <div class="form-grid">
+        {% for field in spec_fields %}
+            <div class="form-field">
+                {{ field.label_tag }} {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+    </div>
+
+    
+    <h3>Transistors Parameters</h3>
+        <div class="form-grid">
+        {% for field in mos_fields %}
+            <div class="form-field">
+                {{ field.label_tag }} {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <h3>Transformer Parameters</h3>
+        <div class="form-grid">
+        {% for field in tr_fields %}
+            <div class="form-field">
+                {{ field.label_tag }} {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <h3>Inductors Parameters</h3>
+        <div class="form-grid">
+        {% for field in ind_fields %}
+            <div class="form-field">
+                {{ field.label_tag }} {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <h3>Other Parameters</h3>
+        <div class="form-grid">
+        {% for field in other_fields %}
+            <div class="form-field">
+                {{ field.label_tag }} {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+    </div>
+    <button type="submit">Calculează </button>
+    </form>
+</div>
+
+
+
+
+
+
+<table border="1" cellpadding="6" cellspacing="0">
+    <caption>DC-DC Converter Specifications</caption>
+    <thead>
+        <tr>
+            <th>Specification</th>
+            <th>Nominal</th>
+            <th>Range / Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Output Power</td>
+            <td>{{ conv.Pout_max.initial }} W</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Input Voltage</td>
+            <td>{{ conv.Vs_nom.initial }} V </td>
+            <td>{{ conv.Vs_min.initial }} - {{ conv.Vs_max.initial }} V</td>
+        </tr>
+        <tr>
+            <td>Output Voltage</td>
+            <td>{{ conv.Vo_nom.initial }} V </td>
+            <td>{{ conv.Vo_min.initial }}  - {{ conv.Vo_max.initial }} V</td>
+        </tr>
+        <tr>
+            <td>Output Current</td>
+            <td>{{ conv.Io_max.initial }} A </td>
+            <td>0 - {{ conv.Io_max.initial  }} A </td>
+        </tr>
+        <tr>
+            <td>Switching Frequency</td>
+            <td>{{ conv.f.initial }} Hz </td>
+            <td>50 - 200 kHz</td>
+        </tr>
+        <tr>
+            <td>Voltage Ripple</td>
+            <td>{{ conv.ripple_Vo.initial }}</td>
+            <td>(fraction, e.g. 0.01)</td>
+        </tr>
+        <tr>
+            <td>Efficiency</td>
+            <td>{{ conv.efficiency.inital }}</td>
+            <td>Target: 90 - 96%</td>
+        </tr>
+    </tbody>
+</table>

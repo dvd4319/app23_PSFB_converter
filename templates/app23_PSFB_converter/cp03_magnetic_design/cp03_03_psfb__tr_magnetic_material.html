@@ -1,0 +1,106 @@
+{% load static %}
+<p>At 200 kHz, core losses (Pv) dominate. We need low specific power loss at ~100–130 mT Bpk and 80–100 °C, reasonable µi for Lp=100 µH with practical Np, and sufficient Bs to avoid saturation. The chosen core is E38/8/25 (Ae ≈194 mm²), so the material must compensate for the small size with the lowest possible losses.</p>
+
+<div class="section">
+    <h2>1. Chosen Magnetic Material: 3C96 (Ferroxcube)</h2>
+    
+    <p class="highlight"><strong>Why 3C96?</strong><br>
+    From the available list (3C81, 3C90, 3C92, 3C93, 3C94, 3C95, 3C96), 3C96 offers the lowest core losses at 200 kHz and high temperature (min. loss @100 °C, very low losses at high flux densities). It has µi ≈2000 (allows 4–6 practical primary turns on E38/8/25), Bs ≈500 mT (at 25 °C) / ≈440 mT (at 100 °C) – sufficient for Bpk <130 mT without saturation at max Vin. Tc ≥240 °C and flat loss behavior over temperature make it superior to the others in the 3C series for medium-frequency (<400 kHz). The other materials in the list have higher Pv at 200 kHz (e.g., 3C95 is flat over temperature but µi too high → too few turns; 3C90/3C94 are limited to low-frequency).<br><br>
+    In the reference thesis used as mathematical basis, 3F3 was selected for the transformer due to its reduced losses at 200 kHz (≈230 kW/m³ at 100 mT). Although 3F3 would have been theoretically preferable, its lack of availability led to the selection of 3C96, with higher losses but compensable through design optimization and the compact core.</p>
+
+<div class="section--content">
+    <div class="galerie-magnetic">
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/EI38_MAG/PEmag_Full_Bridge_11_3C96_parameters.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/EI38_MAG/PEmag_Full_Bridge_11_3C96_parameters.png' %}" alt="boost_xl6019">
+            </a>
+            <figcaption> 3D view of EI38/8/25 Core  ( 3C96 material )   </figcaption>
+        </figure>
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/EI38_MAG/PEmag_Full_Bridge_10_3C96_BH_curve.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/EI38_MAG/PEmag_Full_Bridge_10_3C96_BH_curve.png' %}" alt="boost_xl6019">
+            </a>
+            <figcaption>   YZ view of EI38/8/25 Core  ( 3C96 material )  </figcaption>
+        </figure>
+    </div>
+</div>
+
+    <h3>Comparison of Available Materials at 200 kHz (based on Ferroxcube data)</h3>
+    <table>
+        <tr>
+            <th>Material</th>
+            <th>µi (25 °C)</th>
+            <th>Bsat (mT, 25–100 °C)</th>
+            <th>Optimal freq. range</th>
+            <th>Pv behavior at 200 kHz / ~100 mT (approx.)</th>
+            <th>Primary turns estimate (ungapped E38/8/25)</th>
+            <th>Recommendation at 200 kHz</th>
+        </tr>
+        <tr>
+            <td><strong>3C96</strong> (chosen)</td>
+            <td>≈2000</td>
+            <td>≈500 / ≈440</td>
+            <td><400 kHz, min. loss @100 °C</td>
+            <td>Very low, especially at high flux and 100 °C; best in 3C series for medium freq</td>
+            <td>≈4–6 turns</td>
+            <td><strong>Best choice from list</strong> – lowest Pv + good Bs/µi balance</td>
+        </tr>
+        <tr>
+            <td>3C95</td>
+            <td>≈3000</td>
+            <td>≈530 / ≈410–450</td>
+            <td><400 kHz, flat loss 25–100 °C</td>
+            <td>Low & flat on temp, but higher Pv than 3C96 at 200 kHz/high flux</td>
+            <td>≈3–4 turns</td>
+            <td>Good fallback (flat temp), but more turns issues</td>
+        </tr>
+        <tr>
+            <td>3C94</td>
+            <td>≈2300</td>
+            <td>≈470 / ≈380–420</td>
+            <td><300 kHz, min. loss @60 °C</td>
+            <td>Acceptable low losses at high flux, but higher Pv at 200 kHz/temp >80 °C</td>
+            <td>≈4 turns</td>
+            <td>Viable, but worse than 3C96</td>
+        </tr>
+        <tr>
+            <td>3C92</td>
+            <td>≈1800</td>
+            <td>≈540 / ≈450–480</td>
+            <td><200 kHz, high Bsat</td>
+            <td>Higher Pv at 200 kHz; focused on high Bsat not low loss</td>
+            <td>≈5–6 turns</td>
+            <td>Ok if saturation risk high, but higher losses</td>
+        </tr>
+        <tr>
+            <td>3C90</td>
+            <td>≈2300</td>
+            <td>≈470 / ≈380</td>
+            <td><200 kHz, min. loss @100 °C</td>
+            <td>Higher Pv at 200 kHz (low-freq optimized)</td>
+            <td>≈4 turns</td>
+            <td>Marginal – losses too high</td>
+        </tr>
+        <tr>
+            <td>3C81</td>
+            <td>≈2700</td>
+            <td>≈450 / ≈350–380</td>
+            <td><100 kHz, min. loss @60 °C</td>
+            <td>High Pv at 200 kHz (not for medium freq)</td>
+            <td>≈3–4 turns</td>
+            <td>Avoid – unsuitable for 200 kHz</td>
+        </tr>
+        <tr style="background-color: #f8f9fa; font-style: italic;">
+            <td>3F3 (better but not available)</td>
+            <td>≈2000</td>
+            <td>≈440 / ≈370</td>
+            <td>up to 700 kHz, best ≤400 kHz</td>
+            <td>≈230 kW/m³ – significantly lower than 3C96</td>
+            <td>≈4–5 turns</td>
+            <td>Would have been ideal, but not in stock</td>
+        </tr>
+    </table>
+
+    <p><strong>Key insight:</strong> At 200 kHz on a small core (E38), Pv is critical (rises rapidly with B and f). 3C96 minimizes core losses from the available list (very low losses at high flux and 100 °C), Curie temperature >240 °C is fine, µi is reasonable (gap dominates Lp, but not too high for practical turns). The other 3C materials have higher Pv or unbalanced Bs/µi. Although 3F3 from the reference thesis would have provided significantly lower losses, its unavailability necessitated the use of 3C96 as the best practical alternative.</p>
+    <p><strong> Note : </strong> Given the constraints regarding material procurement, 3F3 was not available. Therefore, the closest and most optimal alternative from the accessible list was selected: 3C96.</p>
+</div>

@@ -1,0 +1,165 @@
+{% load static %} 
+
+<hr>
+<section>
+
+  <h3>Center-Tapped vs Current Doubler Topologies</h3>
+
+  <p>
+    <strong>Center-tapped</strong> and <strong>Current doubler</strong> are two classic full-wave rectification topologies (using two diodes or synchronous rectifiers) commonly used at the secondary side of isolated DC-DC converters, especially in switched-mode power supplies (SMPS) such as phase-shifted full-bridge, LLC, forward converters, etc.
+  </p>
+
+  <div class="section--content">
+          <figure class="figura-magnetic">
+              <a href="{% static './images/power_psfb/full_wave_rectifiers_topologies.png'  %}" target="_blank">
+              <img class="imagini-ltspice" src="{% static './images/power_psfb/full_wave_rectifiers_topologies.png' %}" alt="psfb_converter">
+              </a>
+              <figcaption> Full wave rectifiers topologies (Center tapped and current doubler) </figcaption> 
+          </figure>
+  </div>
+  
+<table border="2">
+  <caption style="font-weight: bold; font-size: 1.2em; padding: 12px;">Center-tapped and Current Doubler Topologies Comparison</caption>
+
+  <thead>
+    <tr style="background-color: #e6e6e6;">
+      <th rowspan="1">Type</th>
+      <th colspan="3">Center Tapped</th>
+      <th colspan="3">Current Doubler</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <!-- Rand 1: deja inclus în thead -->
+    
+    <!-- Rand 2: Magnetic components -->
+    <tr>
+      <td>Magnetic components</td>
+      <td>S1</td>
+      <td>S2</td>
+      <td>L</td>
+      <td>S</td>
+      <td>L1</td>
+      <td>L2</td>
+    </tr>
+    
+    <!-- Rand 3: Switching Frequency -->
+    <tr>
+      <td>Switching Frequency</td>
+      <td colspan="2">Fc/2</td>
+      <td colspan="1">fc</td>
+      <td colspan="3">fc</td> <!-- ultimul fc pentru consistență, dar poți ajusta -->
+    </tr>
+    
+    <!-- Rand 4: Primary no. turns -->
+    <tr>
+      <td>Primary no. turns</td>
+      <td colspan="3">N</td>
+      <td colspan="3">N</td>
+    </tr>
+    
+    <!-- Rand 5: Secondary no. turns -->
+    <tr>
+      <td>Secondary no. turns</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-</td>
+      <td>2</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    
+    <!-- Rand 6: RMS currents -->
+    <tr>
+      <td>RMS currents</td>
+      <td>Is/2</td>
+      <td>Is/2</td>
+      <td>Is</td>
+      <td>Is/2</td>
+      <td>Is/2</td>
+      <td>Is/2</td>
+    </tr>
+    
+    <!-- Rand 7: Output inductor -->
+    <tr>
+      <td>Output inductor</td>
+      <td>-</td>
+      <td>-</td>
+      <td>L</td>
+      <td>-</td>
+      <td>≤ L</td>
+      <td>≤ L</td>
+    </tr>
+  </tbody>
+</table>
+
+
+  <h2>1. Center-Tapped (with center tap)</h2>
+
+  <h3>Schematic overview</h3>
+  <ul>
+    <li>Secondary winding of the transformer has a center tap connected to ground (or output reference).</li>
+    <li>Two diodes (or synchronous MOSFETs) connected to the two ends of the secondary.</li>
+    <li>One output inductor + output filter capacitor after the diodes.</li>
+  </ul>
+
+  <h3>How it works</h3>
+  <ul>
+    <li>In each half-cycle, only one diode conducts (when the voltage is positive at one end).</li>
+    <li>Output inductor current is continuous, but each diode/MOSFET carries current only half the time.</li>
+    <li>Output ripple frequency = 2 × switching frequency (that's why fc/2 appears in some parameters).</li>
+  </ul>
+
+  <h3>Advantages</h3>
+  <ul>
+    <li>Very simple structure, few magnetic components on secondary (only one output inductor).</li>
+    <li>Only two active devices (diodes or MOSFETs).</li>
+  </ul>
+
+  <h3>Major disadvantages</h3>
+  <ul>
+    <li>Poor transformer utilization: only half of the secondary winding is active in each half-cycle.</li>
+    <li>High RMS current through diodes (≈ I<sub>s</sub>/√2).</li>
+    <li>Center tap required → difficult and mechanically fragile at high currents.</li>
+    <li>High diode conduction losses unless synchronous rectification is used.</li>
+  </ul>
+
+  <h2>2. Current Doubler</h2>
+
+  <h3>Schematic overview</h3>
+  <ul>
+    <li>Transformer secondary has <strong>no center tap</strong> → single simple winding.</li>
+    <li>Two diodes (or synchronous MOSFETs) + <strong>two output inductors</strong> (L1 and L2) connected in parallel to the output.</li>
+    <li>Inductors can be separate or magnetically coupled, operating in interleaved mode.</li>
+  </ul>
+
+  <h3>How it works</h3>
+  <ul>
+    <li>When transformer delivers positive voltage → one diode conducts, current ramps up in L1.</li>
+    <li>When transformer delivers negative voltage → other diode conducts, current ramps up in L2.</li>
+    <li>Both inductors deliver current alternately to the load → "current doubling" effect (hence the name).</li>
+    <li>Output ripple frequency = switching frequency (fc), not fc/2.</li>
+  </ul>
+
+  <h3>Advantages</h3>
+  <ul>
+    <li>Simple secondary transformer (no center tap) → much easier to wind and handle at high currents / low voltages.</li>
+    <li>Each inductor carries only half the output current → smaller, cheaper inductors.</li>
+    <li>Similar or lower RMS current through diodes/MOSFETs.</li>
+    <li>Better transformer utilization (entire secondary winding active in both half-cycles).</li>
+    <li>Lower ripple on output capacitor.</li>
+  </ul>
+
+  <h3>Disadvantages</h3>
+  <ul>
+    <li>Two output inductors instead of one → more magnetic components.</li>
+    <li>Higher RMS current through transformer secondary (≈ I<sub>s</sub> instead of I<sub>s</sub>/2).</li>
+  </ul>
+
+<h2>When to choose which?</h2>
+  <ul>
+    <li><strong>Center-tapped</strong> → when you want maximum simplicity and have high output voltage (fewer secondary turns).</li>
+    <li><strong>Current doubler</strong> → when you have high output current, low voltage, and want a more efficient transformer + smaller inductors.</li>
+  </ul>
+
+</section>

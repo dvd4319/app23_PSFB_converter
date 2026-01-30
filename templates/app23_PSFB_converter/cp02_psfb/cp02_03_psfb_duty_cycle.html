@@ -1,0 +1,42 @@
+<h2>3. Derivation of Ideal and Effective Duty Cycle</h2>
+
+$$
+D = \frac{V_o}{V_{in}} \cdot \frac{N_p}{N_s} = {{ results.D_ideal}}
+$$
+
+<h3>3.1. Voltage drop across the leakage inductance</h3>
+
+$$
+\delta V_{L_k} = L_k \cdot I_o \cdot \frac{N_s}{N_p} \cdot F_{sw}= {{results.delta_V_Lk}} V 
+$$
+
+<h3>3.2. Voltage drop due to the resistance of the transformer windings</h3>
+
+$$
+\delta V_{TR} = I_o \cdot \left( \frac{N_s}{N_p} \cdot R_{prim} + \frac{N_p}{N_s} \cdot R_{sec} \right) = {{results.delta_V_TR}} V 
+$$
+
+<h3>3.3. Voltage drop across the switching semiconductor elements (MOSFET)</h3>
+
+$$
+\delta V_{R_{dson}} = I_o \cdot \left( \frac{N_s}{N_p} \cdot 2 \cdot R_{dson_{PR}} + \frac{N_p}{N_s} \cdot R_{dson_{SR}} \right) = {{results.delta_V_Rdson}} V 
+$$
+
+<h3>3.4. Voltage drop across the series resistance</h3>
+
+$$
+\delta V_o = \frac{I_o}{2} \cdot R_{L_o} = {{results.delta_V_Lo}} V 
+$$
+
+<h3>3.5. Effective duty cycle ratio</h3>
+
+$$
+D_{eff} = \frac{V_o + \delta V_o}{V_{in} - \delta V_{L_k} - \delta V_{TR} - \delta V_{R_{dson}}} \cdot \frac{N_p}{N_s}= {{results.D_eff}}
+$$
+
+<h3>3.6. Theoretical maximum effective duty cycle ratio (worst-case scenario)</h3>
+
+$$
+D_{eff,\max} = \frac{V_{o,\max} + \delta V_o}{V_{in,\min} - \delta V_{L_k} - \delta V_{TR} - \delta V_{R_{dson}}} \cdot \frac{N_p}{N_s} = {{results.D_eff_max}}
+$$
+

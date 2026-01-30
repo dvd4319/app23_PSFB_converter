@@ -1,0 +1,23 @@
+<div class="intro-box" style="background-color: #f0f0f0; padding: 15px; border-left: 4px solid #007bff; margin-bottom: 30px;">
+    <p>This page includes <strong>two complementary sections</strong> for designing a <strong>boost converter</strong> based on typical XL6019-module specifications (Vin: 3-35 V, Vout: 5-40 V, Iin_max = 5 A, Pout_max = 30 W).</p>
+
+    <ul>
+        <li><strong>Interactive Calculator:</strong> Automatically computes the minimum inductor (L) and output capacitor (C) using the <em>worst-case critical conditions</em> for a boost topology:
+            <ul>
+                <li><strong>For L:</strong> the most stressful point occurs at <em>minimum input voltage</em> and <em>maximum output power</em>, where the duty cycle is highest and the inductor current peaks.</li>
+                <li><strong>For C:</strong> the worst case is at <em>maximum output voltage</em> and <em>maximum load</em>, where the output ripple is most difficult to control.</li>
+            </ul>
+            This conservative approach ensures stable operation and acceptable ripple across <em>all valid operating points</em> within the specified range.
+        </li>
+
+        <li><strong>Manual Example:</strong> Provides a detailed step-by-step calculation for a <em>specific high-power operating point</em> (e.g., Vin ≈ 7-12 V, Vout ≈ 31-35 V). 
+            At these voltages the duty cycle is moderate, resulting in a larger required inductance (≈ 25-35 µH) compared to the extreme low-Vin case.
+        </li>
+    </ul>
+
+    <p><strong>Why the difference?</strong> In boost converters with wide input/output ranges, the inductor value is always a design compromise. 
+        The automatic calculator targets the <em>absolute worst-case</em> (low Vin, high Pout), while the manual example focuses on a <em>realistic high-power use case</em> where efficiency and thermal performance are more favorable. 
+        Commercial XL6019 modules typically use inductors in the 22-47 µH range as a practical balance between ripple, size, and saturation limits.</p>
+
+    <p>Both approaches are valid and highlight different aspects of boost converter design trade-offs.</p>
+</div>

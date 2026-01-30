@@ -1,0 +1,63 @@
+<!-- <h3>Critical Point</h3> -->
+
+<table>
+    <tr>
+        <th>Quantity</th>
+        <th>Formula</th>
+        <th>Result</th>
+    </tr>
+
+    <tr>
+        <td>Duty cycle (min)</td>
+        <td>\( D_{min} = 1 - \frac{V_{s,min}}{V_{o,max}} \)</td>
+        <td>{{ D_min }}</td>
+    </tr>
+
+    <tr>
+        <td>Duty cycle (max)</td>
+        <td>\( D_{max} = 1 - \frac{V_{s,max}}{V_{o,min}} \)</td>
+        <td>{{ D_max }}</td>
+    </tr>
+
+    <tr>
+        <td>Inductor average current</td>
+        <td>\( I_{L,avg} = \frac{P_{o,max}}{V_{s,min} \cdot \eta} \)</td>
+        <td>{{ IL_avg }} A</td>
+    </tr>
+
+    <tr>
+        <td>Inductor ripple current</td>
+        <td>\( \Delta i_L = 0.3 \cdot I_{L,avg} \)</td>
+        <td>{{ delta_IL }} A</td>
+    </tr>
+
+    <tr>
+        <td>Minimum inductance</td>
+        <td>\( L_{min} = \frac{V_{s,min} \cdot D_{min}}{\Delta i_L \cdot f} \)</td>
+        <td>{{ L_uH }} µH</td>
+    </tr>
+
+    <tr>
+        <td>Absolute output ripple</td>
+        <td>\( \Delta V_{o,abs} = \Delta V_o \cdot V_{o,max} \)</td>
+        <td>{{ delta_Vo_abs }} V</td>
+    </tr>
+
+    <tr>
+        <td>Output capacitor</td>
+        <td>\( C = \frac{I_{o,max} \cdot D_{max}}{\Delta V_{o,abs} \cdot f} \)</td>
+        <td>{{ C_uF }} µF</td>
+    </tr>
+
+    <tr>
+        <td>Maximum Current </td>
+        <td> $I_{max} = I_{L,avg} + \frac{ \Delta i_L}{2} = $ </td>
+        <td> {{ IL_max }} A </td>
+    </tr>
+
+    <tr>
+        <td> Minmum Current </td>
+        <td>$I_{min} = I_{L,avg} - \frac{ \Delta i_L}{2} = $  </td>
+        <td> {{ IL_min }} A </td>
+    </tr>
+</table>

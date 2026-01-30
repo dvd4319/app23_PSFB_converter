@@ -1,0 +1,61 @@
+<h2>5. Secondary-Side Power Switch Design</h2>
+
+<h3>5.1. Maximum and RMS Current Calculation in the Secondary Circuit</h3>
+
+<h4>During the conduction period [0, DT]</h4>
+
+$$
+\Delta i_{L_1} = \frac{V_{in} \cdot \frac{N_s}{N_p} - V_o}{L_o} \cdot \frac{D}{F_{sw}} = {{results.delta_i_L10}} A 
+$$
+
+$$
+\Delta i_{L_2} = -\frac{V_o}{L_o} \cdot \frac{D}{F_{sw}} = {{results.delta_i_L20}} A 
+$$
+
+$$
+\Delta i_{SR} = \Delta i_{L_1} + \Delta i_{L_2} = {{results.delta_i_SR0}} A 
+$$
+
+$$
+I_{SR, \min} = I_o - \frac{\Delta i_{SR}}{2} = {{results.I_SR_min0}} A 
+$$
+
+$$
+I_{SR, \max} = I_o + \frac{\Delta i_{SR}}{2} = {{results.I_SR_max0}} A 
+$$
+
+$$
+I_{SR, RMS, ON} = \sqrt{\frac{I_{SR, \min}^2 + I_{SR, \max}^2 + I_{SR, \min} \cdot I_{SR, \max}}{3}} = {{results.I_SR_RMS_ON}} A 
+$$
+
+<h4>During the conduction period [0, (0.5-D)T]</h4>
+
+$$
+\Delta i_{L_1} = \Delta i_{L_2} = \frac{V_o}{2 \cdot L_o} \cdot \frac{0.5-D}{F_{sw}} = {{results.delta_i_L11}} A 
+$$
+
+$$
+\Delta i_{SR} = \Delta i_{L_1} + \Delta i_{L_2} = {{results.delta_i_SR1}} A 
+$$
+
+$$
+I_{SR, \min} = I_o - \frac{\Delta i_{SR}}{2} = {{results.I_SR_min1}} A 
+$$
+
+$$
+I_{SR, \max} = I_o + \frac{\Delta i_{SR}}{2} = {{results.I_SR_max1}} A 
+$$
+
+$$
+I_{SR, RMS, FW} = \sqrt{\frac{I_{SR, \min}^2 + I_{SR, \max}^2 + I_{SR, \min} \cdot I_{ SR, \max }}{3}} = {{results.I_SR_RMS_FW}} A 
+$$
+
+$$
+I_{SR,RMS} = \sqrt{D \cdot I_{SR,RMS,ON}^2 + (0.5 - D) \cdot I_{SR,RMS, FW}^2} = {{results.I_SR_RMS}} A 
+$$
+
+<h3>Synchronous Rectifier Power Switch Selection</h3>
+
+<p>[Aici poți adăuga textul sau tabelul de selecție a MOSFET-urilor sincron dacă ai]</p>
+
+

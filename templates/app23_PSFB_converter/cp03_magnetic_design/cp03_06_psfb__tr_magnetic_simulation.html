@@ -1,0 +1,76 @@
+<p>
+To perform the numerical simulations, the simulation conditions and models must first be defined for each proposed core variant. It is assumed that all three transformer designs use the same turns ratio (N = 7) and are implemented using planar technology on a six-layer printed circuit board.
+</p>
+
+<p>
+While the winding structure and interconnection scheme may differ between variants, a key design constraint is that the maximum magnetic flux density in the core must not exceed 125&nbsp;mT. This limitation is imposed because, as shown in Figure&nbsp;3.4, core losses increase rapidly beyond this value, making effective thermal management of the transformer core extremely challenging.
+</p>
+
+<p>
+To enable a fair comparison between the proposed core variants, identical operating conditions are assumed for the DC-DC converter. These operating conditions are summarized in Table&nbsp;4.3.
+</p>
+
+<table border="1">
+    <caption>Table 4.3 DC-DC Converter Operating Conditions</caption>
+    <thead>
+        <tr>
+            <th>Parameter</th>
+            <th>Symbol</th>
+            <th>Module 1</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Nominal Output Power</td>
+            <td>P<sub>o</sub></td>
+            <td>1.6 kW</td>
+        </tr>
+        <tr>
+            <td>Input Voltage</td>
+            <td>V<sub>in</sub></td>
+            <td>420 V</td>
+        </tr>
+        <tr>
+            <td>Output Voltage</td>
+            <td>V<sub>o</sub></td>
+            <td>14 V</td>
+        </tr>
+        <tr>
+            <td>Output Current</td>
+            <td>I<sub>o</sub></td>
+            <td>115 A</td>
+        </tr>
+        <tr>
+            <td>Duty Cycle</td>
+            <td>D</td>
+            <td>0.266</td>
+        </tr>
+        <tr>
+            <td>Magnetizing Inductance</td>
+            <td>L<sub>p</sub></td>
+            <td>100 μH</td>
+        </tr>
+    </tbody>
+</table>
+<p>
+The transformer will be evaluated through numerical simulations using each of the three proposed core variants in order to determine the key electrical and magnetic parameters, including:
+</p>
+
+<ul>
+    <li>Equivalent winding resistances at the operating frequency;</li>
+    <li>Winding losses and core losses;</li>
+    <li>Intrinsic leakage inductance;</li>
+    <li>Maximum magnetic flux density in the core.</li>
+</ul>
+
+<p>
+Finite Element Method (FEM) simulations will be carried out using Ansys Maxwell, part of the Ansys Electromagnetics software suite. This tool enables the analysis of a wide range of magnetic structures, such as inductors, electric motors, generators, and electromagnets&nbsp;[19].
+</p>
+
+<p>
+For the FEM analysis, an adaptive discretization mesh will be employed. This type of mesh increases resolution in regions with high magnetic field non-uniformity (e.g., air gaps) and applies a coarser mesh in areas where the magnetic field is relatively uniform. As a result, simulation time is significantly reduced without compromising result accuracy.
+</p>
+
+<p>
+For all FEM simulations, a maximum error threshold of 2% was specified. This parameter, defined within the Ansys software, controls the mesh refinement level required to ensure proper solution convergence.
+</p>

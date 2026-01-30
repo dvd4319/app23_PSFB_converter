@@ -1,0 +1,145 @@
+{% load static %}
+<div class="section">
+    <hr>
+    <h2>Chosen Core: E38/8/25 Planar E-core</h2>
+    
+    <p class="highlight"><strong>Why E38/8/25?</strong><br>
+    The transformer uses planar technology with multilayer PCB windings to achieve high power density, reduced volume, and good thermal performance compared to conventional wire-wound designs. Core selection in planar magnetics is driven by two key parameters: effective core cross-sectional area (Ae) – which determines Bpk and core losses – and winding window width/area – which limits conductor cross-section per turn and directly affects DC and AC winding losses at high output current (up to 230 A total).</p>
+
+    <p>A larger window width enables wider PCB tracks, lowering resistance and proximity/skin effect losses on the high-current secondary. The goal is to minimize total losses (core + windings) while keeping Bpk practical (90–130 mT target at 200 kHz) and achieving Lp = 100 µH. E38/8/25 was chosen over E43/10/28 and the other evaluated cores primarily due to its availability in stock and superior compactness (≈9 cm³ volume), which was critical for integration in space-constrained 1.6 kW modules. This came with a trade-off in Ae and window width, compensated by the low-loss material 3C96 and careful PCB optimization (wide copper layers, interleaving).</p>
+
+
+<div class="section--content">
+    <div class="galerie-magnetic">
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/EI38_MAG/PEmag_Full_Bridge_03_EI38_core_properties.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/EI38_MAG/PEmag_Full_Bridge_03_EI38_core_properties.png' %}" alt="boost_xl6019">
+            </a>
+            {% comment %} <figcaption> 3D view of EI38/8/25 Core  ( 3C96 material )   </figcaption> {% endcomment %}
+        </figure>
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/EI38_MAG/PEmag_Full_Bridge_04_EI38_core_dimensions.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/EI38_MAG/PEmag_Full_Bridge_04_EI38_core_dimensions.png' %}" alt="boost_xl6019">
+            </a>
+            {% comment %} <figcaption>   YZ view of EI38/8/25 Core  ( 3C96 material )  </figcaption> {% endcomment %}
+        </figure>
+    </div>
+</div>
+
+
+    <h3>Comparison of Evaluated Planar Cores</h3>
+    <table>
+        <tr>
+            <th>Core Model</th>
+            <th>Effective Core Area (Ae)</th>
+            <th>Total Core Volume</th>
+            <th>Winding Window Width</th>
+            <th>Pros for this PSFB (1.6 kW/module, 200 kHz, high-current secondary)</th>
+            <th>Cons</th>
+            <th>Recommendation</th>
+        </tr>
+        <tr>
+            <td><strong>E38/8/25</strong> (chosen)</td>
+            <td>≈194 mm²</td>
+            <td>≈9 cm³</td>
+            <td>≈10–12 mm</td>
+            <td>Smallest volume → excellent power density and thermal performance in compact modules; sufficient Ae for Bpk 100–130 mT with low-loss material (3C96); compact for integration in 1.6 kW modules; available in stock at the time of prototyping</td>
+            <td>Narrower window → higher winding resistance and AC losses at 115–230 A; smaller Ae → Bpk higher than larger cores, requires very low Pv material to compensate</td>
+            <td><strong>Chosen for compactness, density, and availability</strong> – best practical option when volume/weight and stock constraints are priorities</td>
+        </tr>
+        <tr>
+            <td>E43/10/28</td>
+            <td>229 mm²</td>
+            <td>13.9 cm³</td>
+            <td>13.3 mm</td>
+            <td>Better Ae → lower Bpk and core losses; wider window → reduced winding losses at high current; good balance overall</td>
+            <td>Larger volume → worse power density; not available in stock during prototyping</td>
+            <td>Strong theoretical alternative, but not feasible due to availability and size constraints</td>
+        </tr>
+        <tr>
+            <td>ER51/10/38</td>
+            <td>314 mm²</td>
+            <td>25.8 cm³</td>
+            <td>10.9 mm</td>
+            <td>Largest Ae → lowest Bpk and core losses possible</td>
+            <td>Narrow window → high winding losses; very large volume → poor density and thermal in modules</td>
+            <td>Not suitable – winding losses too high</td>
+        </tr>
+        <tr>
+            <td>E58/11/38</td>
+            <td>308 mm²</td>
+            <td>24.6 cm³</td>
+            <td>21.1 mm</td>
+            <td>Widest window → lowest winding losses; large Ae → low core losses</td>
+            <td>Oversized volume → reduced power density, heavier, worse thermal in compact design</td>
+            <td>Good only if efficiency >94% is critical and space allows</td>
+        </tr>
+    </table>
+
+    <p><strong>Conclusion on core:</strong> E38/8/25 was selected for its superior power density and compact size (≈9 cm³), making it ideal for integration in 1.6 kW modules with limited space and strict weight requirements. It provides acceptable Ae (194 mm²) for Bpk in the 100–130 mT range when paired with a very low-loss material like 3C96, and the narrower window (≈10–12 mm) is managed through careful PCB track design (wide copper layers, interleaving). Larger cores such as E43/10/28 offer better winding loss performance or lower core losses, but were not chosen due to unavailability in stock at the time of prototyping and the unacceptable increase in volume/density trade-off for this application. The choice prioritizes compactness, availability, and practical integration while relying on 3C96 to keep core losses under control.</p>
+</div>
+
+<p><strong>Overall:</strong> 3C96 on E38/8/25 minimizes core losses within the available materials (lowest Pv at 200 kHz/high flux and 100 °C), supports Lp = 100 µH and ZVS, avoids saturation at Vin max, and targets the efficiency goal. Pragmatic choice based on Ferroxcube data, constrained by available stock, and focused on compact module design.</p>
+
+{% comment %} <div class="section">
+    <hr>
+    <h2>Chosen Core: E38/8/25 Planar E-core</h2>
+    
+    <p class="highlight"><strong>Why E38/8/25?</strong><br>
+    The transformer uses planar technology with multilayer PCB windings to achieve high power density, reduced volume, and good thermal performance compared to conventional wire-wound designs. Core selection in planar magnetics is driven by two key parameters: effective core cross-sectional area (Ae) – which determines Bpk and core losses – and winding window width/area – which limits conductor cross-section per turn and directly affects DC and AC winding losses at high output current (up to 230 A total).</p>
+
+    <p>A larger window width enables wider PCB tracks, lowering resistance and proximity/skin effect losses on the high-current secondary. The goal is to minimize total losses (core + windings) while keeping Bpk practical (90–130 mT target at 200 kHz) and achieving Lp = 100 µH. E38/8/25 was chosen for its compact size and sufficient Ae, accepting a trade-off in winding window to prioritize overall module integration and power density.</p>
+
+    <h3>Comparison of Evaluated Planar Cores</h3>
+    <table>
+        <tr>
+            <th>Core Model</th>
+            <th>Effective Core Area (Ae)</th>
+            <th>Total Core Volume</th>
+            <th>Winding Window Width</th>
+            <th>Pros for this PSFB (1.6 kW/module, 200 kHz, high-current secondary)</th>
+            <th>Cons</th>
+            <th>Recommendation</th>
+        </tr>
+        <tr>
+            <td><strong>E38/8/25</strong> (chosen)</td>
+            <td>≈194 mm²</td>
+            <td>≈9 cm³</td>
+            <td>≈10–12 mm</td>
+            <td>Smallest volume → excellent power density and thermal performance in compact modules; sufficient Ae for Bpk 100–130 mT with low-loss material (3C96); compact for integration in 1.6 kW modules</td>
+            <td>Narrower window → higher winding resistance and AC losses at 115–230 A; smaller Ae → Bpk higher than larger cores, requires very low Pv material to compensate</td>
+            <td><strong>Chosen for compactness and density</strong> – best if volume/weight is priority and winding losses are managed via PCB optimization</td>
+        </tr>
+        <tr>
+            <td>E43/10/28</td>
+            <td>229 mm²</td>
+            <td>13.9 cm³</td>
+            <td>13.3 mm</td>
+            <td>Better Ae → lower Bpk and core losses; wider window → reduced winding losses at high current; good balance overall</td>
+            <td>Larger volume → slightly worse power density</td>
+            <td>Strong alternative if more winding margin needed</td>
+        </tr>
+        <tr>
+            <td>ER51/10/38</td>
+            <td>314 mm²</td>
+            <td>25.8 cm³</td>
+            <td>10.9 mm</td>
+            <td>Largest Ae → lowest Bpk and core losses possible</td>
+            <td>Narrow window → high winding losses; very large volume → poor density and thermal in modules</td>
+            <td>Not suitable – winding losses too high</td>
+        </tr>
+        <tr>
+            <td>E58/11/38</td>
+            <td>308 mm²</td>
+            <td>24.6 cm³</td>
+            <td>21.1 mm</td>
+            <td>Widest window → lowest winding losses; large Ae → low core losses</td>
+            <td>Oversized volume → reduced power density, heavier, worse thermal in compact design</td>
+            <td>Good only if efficiency >94% is critical and space allows</td>
+        </tr>
+    </table>
+
+    <p><strong>Conclusion on core:</strong> E38/8/25 was selected for its superior power density and compact size (≈9 cm³), making it ideal for integration in 1.6 kW modules with limited space. It provides acceptable Ae (194 mm²) for Bpk in the 100–130 mT range when paired with a very low-loss material like 3C96, and the narrower window (≈10–12 mm) is managed through careful PCB track design (wide copper layers, interleaving). Larger cores (E43, ER51, E58) offer better winding loss performance or lower core losses, but at the expense of significantly higher volume and poorer density – unacceptable trade-off for this application. The choice prioritizes compactness while relying on 3C96 to keep core losses under control.</p>
+</div>
+
+<p><strong>Overall:</strong> 3C96 on E38/8/25 minimizes core losses within the available materials (lowest Pv at 200 kHz/high flux and 100 °C), supports Lp = 100 µH and ZVS, avoids saturation at Vin max, and targets the efficiency goal. Pragmatic choice based on Ferroxcube data, constrained by available stock, and focused on compact module design.</p> {% endcomment %}

@@ -1,0 +1,468 @@
+<h3>Analytical model behind PExprt results (RM10, PC50, AWG16)</h3>
+
+<h4>1. Given data</h4>
+
+<table>
+    <tr><th>Quantity</th><th>Symbol</th><th>Value</th></tr>
+    <tr><td>Input voltage</td><td>\( V_{in} \)</td><td>\( 12\,\text{V} \)</td></tr>
+    <tr><td>Output voltage</td><td>\( V_{out} \)</td><td>\( 24\,\text{V} \)</td></tr>
+    <tr><td>Output power</td><td>\( P_{out} \)</td><td>\( 30\,\text{W} \)</td></tr>
+    <tr><td>Switching frequency</td><td>\( f \)</td><td>\( 220\,\text{kHz} \)</td></tr>
+    <tr><td>Inductance</td><td>\( L \)</td><td>\( 41.32\,\mu\text{H} \)</td></tr>
+    <tr><td>Ripple current (PExprt)</td><td>\( \Delta i_L \)</td><td>\( 0.66\,\text{A} \)</td></tr>
+    <tr><td>Core type</td><td></td><td>RM10, material PC50</td></tr>
+    <tr><td>Core geometry</td><td>\( A_e, l_e, V_e \)</td>
+        <td>\(A_e = 98\,\text{mm}^2,\; l_e = 44\,\text{mm},\; V_e = 4312\,\text{mm}^3\)</td>
+    </tr>
+    <tr><td>AL value</td><td>\( A_L \)</td><td>\( 3380.6\,\text{nH/turn}^2 \)</td></tr>
+    <tr><td>Wire type</td><td></td><td>AWG16</td></tr>
+    <tr><td>Wire diameter</td><td>\( d \)</td><td>\( 1.39\,\text{mm} \)</td></tr>
+    <tr><td>Cu resistivity</td><td>\( \rho_{Cu} \)</td><td>\( 2.21 \times 10^{-8}\,\Omega\cdot\text{m} \)</td></tr>
+</table>
+
+<hr>
+
+<h4>2. Duty cycle, output current, load resistance</h4>
+
+<table>
+    <tr><th>Step</th><th>Formula</th><th>Result</th></tr>
+
+    <tr>
+        <td>Boost DC gain</td>
+        <td>\( V_{out} = \dfrac{V_{in}}{1-D} \)</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>Duty cycle</td>
+        <td>
+            
+
+\[
+            24 = \frac{12}{1-D}
+            \Rightarrow 1-D = \frac{1}{2}
+            \Rightarrow D = 0.5
+            \]
+
+
+        </td>
+        <td>\( D = 0.5 \)</td>
+    </tr>
+
+    <tr>
+        <td>Output current</td>
+        <td>\( I_{out} = \dfrac{P_{out}}{V_{out}} \)</td>
+        <td>\( I_{out} = \dfrac{30}{24} = 1.25\,\text{A} \)</td>
+    </tr>
+
+    <tr>
+        <td>Load resistance</td>
+        <td>\( R = \dfrac{V_{out}}{I_{out}} = \dfrac{V_{out}^2}{P_{out}} \)</td>
+        <td>\( R = \dfrac{24^2}{30} = 19.2\,\Omega \)</td>
+    </tr>
+</table>
+
+<hr>
+
+<h4>3. Number of turns from AL and inductance</h4>
+
+<table>
+    <tr><th>Step</th><th>Formula</th><th>Result</th></tr>
+
+    <tr>
+        <td>Relation between inductance and AL</td>
+        <td>\( L = A_L \cdot N^2 \)</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>Solve for number of turns</td>
+        <td>
+            
+
+\[
+            N = \sqrt{\dfrac{L}{A_L}}
+            \]
+
+
+        </td>
+        <td>
+            
+
+\[
+            L = 41.32\,\mu\text{H} = 41.32 \times 10^3\,\text{nH}
+            \]
+
+
+            
+
+\[
+            N = \sqrt{\dfrac{41.32 \times 10^{3}}{3380.6}}
+            \approx \sqrt{12.22} \approx 3.49
+            \]
+
+
+            (în practică, pentru valorile exacte din PExprt, \(N\) este stabilit automat; aici formula arată dependența)
+        </td>
+    </tr>
+</table>
+
+<p>
+Notă: pentru un design real, numărul de spire este rotunjit la un întreg și poate fi ajustat pentru a obține exact inductanța dorită, ținând cont de toleranțele miezului și ale AL-ului.
+</p>
+
+<hr>
+
+<h4>4. Inductor current ripple – consistency check</h4>
+
+<table>
+    <tr><th>Step</th><th>Formula</th><th>Result</th></tr>
+
+    <tr>
+        <td>Switching period</td>
+        <td>\( T = \dfrac{1}{f} \)</td>
+        <td>\( T = \dfrac{1}{220000} \approx 4.545 \times 10^{-6}\,\text{s} \)</td>
+    </tr>
+
+    <tr>
+        <td>Inductor voltage during ON interval</td>
+        <td>\( v_L = V_{in} \)</td>
+        <td>\( v_L = 12\,\text{V} \)</td>
+    </tr>
+
+    <tr>
+        <td>Current ripple in CCM</td>
+        <td>
+            
+
+\[
+            \Delta i_L = \frac{v_L \cdot D \cdot T}{L}
+            = \frac{V_{in} \cdot D \cdot T}{L}
+            \]
+
+
+        </td>
+        <td>
+            
+
+\[
+            \Delta i_L =
+            \frac{12 \cdot 0.5 \cdot 4.545 \times 10^{-6}}
+                 {41.32 \times 10^{-6}}
+            \approx 0.66\,\text{A}
+            \]
+
+
+        </td>
+    </tr>
+</table>
+
+<p>
+Rezultatul analitic \(\Delta i_L \approx 0.66\,\text{A}\) este în acord cu valoarea raportată de PExprt.
+</p>
+
+<hr>
+
+<h4>5. Magnetic field quantities B, H, & permeability</h4>
+
+<table>
+    <tr><th>Step</th><th>Formula</th><th>Comment</th></tr>
+
+    <tr>
+        <td>Magnetic path parameters</td>
+        <td>
+            
+
+\[
+            A_e = 98 \,\text{mm}^2 = 98 \times 10^{-6}\,\text{m}^2
+            \]
+
+
+            
+
+\[
+            l_e = 44 \,\text{mm} = 0.044\,\text{m}
+            \]
+
+
+        </td>
+        <td>Din fișa miezului RM10.</td>
+    </tr>
+
+    <tr>
+        <td>Magnetic field strength</td>
+        <td>
+            
+
+\[
+            H = \frac{N \cdot I}{l_e}
+            \]
+
+
+        </td>
+        <td>\(H_{avg}\) raportat de PExprt corespunde unui curent mediu prin inductor.</td>
+    </tr>
+
+    <tr>
+        <td>Flux density</td>
+        <td>
+            
+
+\[
+            B = \mu_0 \mu_{eff} H
+            \quad \text{sau} \quad
+            B = \frac{L \cdot I}{N \cdot A_e}
+            \]
+
+
+        </td>
+        <td>
+            PExprt raportează, de exemplu:
+            
+
+\[
+            B_{var} \approx 55.66\,\text{mT},
+            \quad
+            B_{max} \approx 196.49\,\text{mT}
+            \]
+
+
+            pe baza valorilor instantanee de curent și a traseelor de flux din FEA.
+        </td>
+    </tr>
+
+    <tr>
+        <td>Incremental permeability</td>
+        <td>
+            
+
+\[
+            \mu_{inc} = \frac{B}{\mu_0 H}
+            \]
+
+
+        </td>
+        <td>
+            Din raport:
+            \(\mu_{init} = 1400,\; \mu_{act} = 1400\).
+        </td>
+    </tr>
+</table>
+
+<hr>
+
+<h4>6. Core losses model (PC50)</h4>
+
+<p>
+Pentru materialul PC50, pierderile în miez sunt de obicei modelate printr-o ecuație de tip Steinmetz:
+</p>
+
+<div class="formula">
+
+
+\[
+P_{core} = k \cdot f^{\alpha} \cdot B_{peak}^{\beta} \cdot V_e
+\]
+
+
+</div>
+
+<table>
+    <tr><th>Symbol</th><th>Meaning</th></tr>
+    <tr><td>\(k, \alpha, \beta\)</td><td>Constante Steinmetz specifice materialului PC50 (din datasheet)</td></tr>
+    <tr><td>\(f\)</td><td>Frecvența de comutație</td></tr>
+    <tr><td>\(B_{peak}\)</td><td>Valoarea de vârf a densității de flux</td></tr>
+    <tr><td>\(V_e\)</td><td>Volumul efectiv al miezului</td></tr>
+</table>
+
+<p>
+PExprt folosește aceste constante împreună cu \(B(t)\) din simularea FEA pentru a calcula pierderile:
+
+
+\[
+P_{core} \approx 8.679\,\text{mW}
+\]
+
+
+</p>
+
+<hr>
+
+<h4>7. Copper losses – DC & AC</h4>
+
+<h5>7.1 DC resistance</h5>
+
+<p>Rezistența în curent continuu a înfășurării se obține din:</p>
+
+<div class="formula">
+
+
+\[
+R_{DC} = \rho_{Cu} \cdot \frac{\ell_{wire}}{A_{cu}}
+\]
+
+
+</div>
+
+<table>
+    <tr><th>Symbol</th><th>Meaning</th></tr>
+    <tr><td>\(\rho_{Cu}\)</td><td>Rezistivitatea cuprului (\(2.21 \times 10^{-8}\,\Omega\cdot\text{m}\))</td></tr>
+    <tr><td>\(\ell_{wire}\)</td><td>Lungimea totală a conductorului (în funcție de MLT și numărul de spire)</td></tr>
+    <tr><td>\(A_{cu}\)</td><td>Aria secțiunii conductorului (din diametrul AWG16)</td></tr>
+</table>
+
+<p>
+PExprt calculează automat \(R_{DC}\) și raportează, de exemplu:
+
+
+\[
+R_{DC} \approx 2.029\,\Omega
+\]
+
+
+</p>
+
+<h5>7.2 DC copper loss</h5>
+
+<div class="formula">
+
+
+\[
+P_{DC} = I_{rms}^2 \cdot R_{DC}
+\]
+
+
+</div>
+
+<p>
+Cu:
+
+
+\[
+I_{rms} \approx 2.009\,\text{A}
+\quad \Rightarrow \quad
+P_{DC} \approx 8.191\,\text{mW}
+\]
+
+
+</p>
+
+<h5>7.3 AC copper loss (skin & proximity)</h5>
+
+<p>
+PExprt folosește un model de tip Dowell pentru a evalua pierderile AC:
+</p>
+
+<div class="formula">
+
+
+\[
+P_{AC} = k_{AC}(f,\,\text{layers},\,d_{wire}) \cdot I_{AC,rms}^2
+\]
+
+
+</div>
+
+<p>
+Pierderile totale în înfășurări sunt:
+
+
+\[
+P_{winding} = P_{DC} + P_{AC} \approx 8.289\,\text{mW}
+\]
+
+
+</p>
+
+<hr>
+
+<h4>8. Window occupancy & current density</h4>
+
+<h5>8.1 Window fill factor</h5>
+
+<div class="formula">
+
+
+\[
+F_{fill} = \frac{A_{cu,tot}}{A_{window}} \times 100\%
+\]
+
+
+</div>
+
+<p>
+PExprt raportează, de exemplu:
+
+
+\[
+F_{fill} \approx 33.21\%, \quad \text{Winding rate} \approx 66.08\%
+\]
+
+
+</p>
+
+<h5>8.2 Current density</h5>
+
+<div class="formula">
+
+
+\[
+J = \frac{I}{A_{cu,tot}}
+\]
+
+
+</div>
+
+<p>
+Din raport:
+
+
+\[
+J_1 \approx 768.59\,\text{mA/mm}^2
+\]
+
+
+</p>
+
+<hr>
+
+<h4>9. Temperature rise</h4>
+
+<p>
+Temperatura este estimată folosind un model termic de tip rezistență termică echivalentă:
+</p>
+
+<div class="formula">
+
+
+\[
+\Delta T = P_{tot} \cdot R_{\theta}
+\]
+
+
+</div>
+
+<table>
+    <tr><th>Symbol</th><th>Meaning</th></tr>
+    <tr><td>\(P_{tot}\)</td><td>Pierderi totale (\(P_{core} + P_{winding}\))</td></tr>
+    <tr><td>\(R_{\theta}\)</td><td>Rezistența termică echivalentă miez–bobină–ambient</td></tr>
+</table>
+
+<p>
+Cu:
+
+
+\[
+P_{tot} \approx 16.968\,\text{mW}
+\]
+
+
+și o rezistență termică ridicată, temperatura rezultată este foarte aproape de ambient:
+
+
+\[
+T_{max} \approx 25.37^\circ\text{C}, \quad T_{core} \approx 25.34^\circ\text{C}
+\]
+
+
+</p>

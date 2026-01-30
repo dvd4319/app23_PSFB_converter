@@ -1,0 +1,69 @@
+<h2>6. Primary-Side Power Switch Design</h2>
+
+<h3>Current Calculation Through Primary-Side Power Switches</h3>
+
+Magnetizing current:
+
+$$
+I_m = \frac{V_{in}}{L_p} \cdot \frac{D}{F_{sw}} = {{results.Im}} A 
+$$
+
+<h4>During the conduction interval [0,DT]</h4>
+
+Primary current (minimum and maximum):
+
+$$
+I_{p_{\min}} = I_{L_{o,\min}} \cdot \frac{N_s}{N_p} - \frac{I_m}{2} = {{results.I_p_min}} A 
+$$
+
+$$
+I_{p_{\max}} = I_{L_{o,\max}} \cdot \frac{N_s}{N_p} + \frac{I_m}{2} = {{ results.I_p_max}} A 
+$$
+
+<ol>
+    <li>$I_{L_{o,\min}}$ - minimum current through the output inductor</li> 
+    <li>$I_{L_{o,\max}}$ - maximum current through the output inductor</li> 
+</ol>
+
+RMS value of the current during the interval [0,DT]:
+
+$$
+I_{p_{rms,ON}} = \sqrt{\frac{I_{p_{\min}}^2 + I_{p_{\max}}^2 + I_{p_{\min}} \cdot I_{p_{\max}}}{3}} = {{ results.I_p_rms_on}} A 
+$$
+
+<h4>During the freewheeling interval [0,(0.5-D)T]</h4>
+
+$$
+I_{p_{min},2} = I_{p_{\max}} \cdot e^{-\frac{R_e}{L_k} \cdot (0.5-D) \cdot T} + \frac{I_m}{2} = {{ results.I_p_min_2}} A 
+$$
+
+<ol>
+    <li>$L_k$ - leakage inductance</li>
+    <li>$R_e$ - sum of equivalent resistances referred to the primary side</li>
+</ol>
+
+$$
+R_e = 2 \cdot R_{dson_{PR}} + R_{prim} + \left( R_{sec} + 2 \cdot R_{dson_{SR}} \right) \cdot \left( \frac{N_p}{N_s} \right)^2  = {{ results.Re_mOhm}} m \Omega
+$$
+
+RMS value of the current during the freewheeling interval [0,(0.5-D)T]:
+
+$$
+I_{p_{rms,FW}} = \sqrt{\frac{I_{p_{\min},2}^2 + I_{p_{\max}}^2 + I_{p_{\min},2} \cdot I_{p_{\max}}}{3}} = {{ results.I_p_rms_FW}} A 
+$$
+
+RMS current value through the primary-side power static switches:
+
+$$
+I_{PR,RMS} = \sqrt{D \cdot I_{p_{rms,ON}}^2 + (0.5 - D) \cdot I_{p_{rms,FW}}^2} = {{ results.I_PR_RMS}} A 
+$$
+
+RMS current in the primary winding of the transformer (2 half-cycles during one switching period):
+
+$$
+I_{p_{RMS}} = \sqrt{I_{p_{rms,ON}}^2 + I_{p_{rms,FW}}^2} = {{ results.I_p_RMS}} A 
+$$
+
+<h3>Primary-Side Power Switch Selection</h3>
+
+<p>[Aici poți adăuga selecția MOSFET-urilor primare dacă ai date]</p>

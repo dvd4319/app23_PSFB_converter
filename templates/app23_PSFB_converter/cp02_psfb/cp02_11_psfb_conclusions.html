@@ -1,0 +1,80 @@
+<section>
+    <table class="table table-bordered table-sm">
+  <caption>All Calculated Results </caption>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Parameter Description</th>
+      <th>Parameter </th>
+      <th>Template Usage (results key)</th>
+      <th>Unit (as shown in your code)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Maximum turns ratio (theoretical)</td><td> $ N_p / N_s$</td><td>{{ results.N_ratio_max }}</td><td>-</td></tr>
+    <tr><td>2</td><td>Ideal duty cycle</td><td> $D$</td><td>{{ results.D_ideal }}</td><td>-</td></tr>
+    <tr><td>3</td><td>Voltage drop on leakage inductance</td><td>$\delta V_{L_k}$</td><td>{{ results.delta_V_Lk }}</td><td>V</td></tr>
+    <tr><td>4</td><td>Voltage drop on transformer windings</td><td>$\delta V_{TR}$</td><td>{{ results.delta_V_TR }}</td><td>V</td></tr>
+    <tr><td>5</td><td>Voltage drop on MOSFET Rdson</td><td>$\delta V_{R_{dson}}$</td><td>{{ results.delta_V_Rdson }}</td><td>V</td></tr>
+    <tr><td>6</td><td>Voltage drop on output inductor</td><td>$\delta V_o$</td><td>{{ results.delta_V_Lo }}</td><td>V</td></tr>
+    <tr><td>7</td><td>Effective duty cycle (nominal)</td><td>$D_{eff}$</td><td>{{ results.D_eff }}</td><td>-</td></tr>
+    <tr><td>8</td><td>Maximum effective duty cycle (worst-case)</td><td>$D_{eff,\max}$</td><td>{{ results.D_eff_max }}</td><td>-</td></tr>
+    <tr><td>9</td><td>Minimum output current (empirical)</td><td>$I_{o,\min} $</td><td>{{ results.Io_min_calc }}</td><td>A</td></tr>
+    <tr><td>10</td><td>Output inductor current ripple</td><td>$\Delta i_{L_o}$</td><td>{{ results.delta_I_Lo }}</td><td>A</td></tr>
+    <tr><td>11</td><td>Output inductor inductance</td><td>$L_o$</td><td>{{ results.Lo_uH }}</td><td>µH</td></tr>
+    <tr><td>12</td><td>Max output inductor current</td><td>$I_{L_o, \max}$</td><td>{{ results.I_Lo_max }}</td><td>A</td></tr>
+    <tr><td>13</td><td>Min output inductor current</td><td>$I_{L_o, \min}$</td><td>{{ results.I_Lo_min }}</td><td>A</td></tr>
+    <tr><td>14</td><td>RMS output inductor current</td><td>$I_{L_o, rms}$</td><td>{{ results.I_Lo_RMS }}</td><td>A</td></tr>
+    <tr><td>15</td><td>Maximum flux density in inductor core</td><td>$B_{\max} $</td><td>{{ results.B_max_T }}</td><td>T</td></tr>
+    <tr><td>16</td><td>Ferrite core area (used)</td><td>$A_c $</td><td>{{ results.Ac_ferita_mm2 }}</td><td>mm²</td></tr>
+    <tr><td>17</td><td>Minimum theoretical core area</td><td>$A_{c_{\min}} $</td><td>{{ results.Ac_min_mm2 }}</td><td>mm²</td></tr>
+    <tr><td>18</td><td>Current variation DT (L1)</td><td>$\Delta i_{L_1}$</td><td>{{ results.delta_i_L10 }}</td><td>A</td></tr>
+    <tr><td>19</td><td>Current variation DT (L2)</td><td>$\Delta i_{L_2}$</td><td>{{ results.delta_i_L20 }}</td><td>A</td></tr>
+    <tr><td>20</td><td>Total SR current variation DT</td><td>$\Delta i_{SR} $</td><td>{{ results.delta_i_SR0 }}</td><td>A</td></tr>
+    <tr><td>21</td><td>Min SR current DT</td><td>$I_{SR, \min} $</td><td>{{ results.I_SR_min0 }}</td><td>A</td></tr>
+    <tr><td>22</td><td>Max SR current DT</td><td>$I_{SR, \max}$</td><td>{{ results.I_SR_max0 }}</td><td>A</td></tr>
+    <tr><td>23</td><td>RMS SR current DT (ON)</td><td>$I_{SR, RMS, ON}$</td><td>{{ results.I_SR_RMS_ON }}</td><td>A</td></tr>
+    <tr><td>24</td><td>Current variation freewheeling (L1=L2)</td><td>$\Delta i_{L_1}, ~ \Delta i_{L_2} $</td><td>{{ results.delta_i_L11 }}</td><td>A</td></tr>
+    <tr><td>25</td><td>Total SR current variation FW</td><td>$\Delta i_{SR}$</td><td>{{ results.delta_i_SR1 }}</td><td>A</td></tr>
+    <tr><td>26</td><td>Min SR current FW</td><td>$I_{SR, \min} $</td><td>{{ results.I_SR_min1 }}</td><td>A</td></tr>
+    <tr><td>27</td><td>Max SR current FW</td><td>$I_{SR, \max} $</td><td>{{ results.I_SR_max1 }}</td><td>A</td></tr>
+    <tr><td>28</td><td>RMS SR current FW</td><td>$I_{SR, RMS, FW} $</td><td>{{ results.I_SR_RMS_FW }}</td><td>A</td></tr>
+    <tr><td>29</td><td>Total RMS SR current</td><td>$I_{SR,RMS}$</td><td>{{ results.I_SR_RMS }}</td><td>A</td></tr>
+    <tr><td>30</td><td>Primary magnetizing current</td><td>$I_m $</td><td>{{ results.Im }}</td><td>A</td></tr>
+    <tr><td>31</td><td>Min primary current DT</td><td>$I_{p_{\min}}$</td><td>{{ results.I_p_min }}</td><td>A</td></tr>
+    <tr><td>32</td><td>Max primary current DT</td><td>$I_{p_{\max}} $</td><td>{{ results.I_p_max }}</td><td>A</td></tr>
+    <tr><td>33</td><td>RMS primary current DT (ON)</td><td>$I_{p_{rms,ON}}$</td><td>{{ results.I_p_rms_on }}</td><td>A</td></tr>
+    <tr><td>34</td><td>Min primary current freewheeling</td><td>$I_{p_{min},2} $</td><td>{{ results.I_p_min_2 }}</td><td>A</td></tr>
+    <tr><td>35</td><td>Equivalent primary resistance</td><td>$R_e$</td><td>{{ results.Re_mOhm }}</td><td>mΩ</td></tr>
+    <tr><td>36</td><td>RMS primary current freewheeling</td><td>$I_{p_{rms,FW}} $</td><td>{{ results.I_p_rms_FW }}</td><td>A</td></tr>
+    <tr><td>37</td><td>RMS primary switches current</td><td>$I_{PR,RMS}$</td><td>{{ results.I_PR_RMS }}</td><td>A</td></tr>
+    <tr><td>38</td><td>RMS primary transformer winding current</td><td>$I_{p_{RMS}}$</td><td>{{ results.I_p_RMS }}</td><td>A</td></tr>
+    <tr><td>39</td><td>Energy in primary parasitic capacitances</td><td>$E_{cap}$</td><td>{{ results.E_cap_uJ }}</td><td>µJ</td></tr>
+    <tr><td>40</td><td>Energy in leakage inductance</td><td>$E_k$</td><td>{{ results.E_k_uJ }}</td><td>µJ</td></tr>
+    <tr><td>41</td><td>Output capacitor current ripple</td><td>$\delta I_{C_o}$</td><td>{{ results.delta_I_Co }}</td><td>A</td></tr>
+    <tr><td>42</td><td>Minimum output capacitance</td><td>$C_{o, \min}$</td><td>{{ results.Co_min_uF }}</td><td>µF</td></tr>
+    <tr><td>43</td><td>Total output inductor losses</td><td>$P_{L_o} $</td><td>{{ results.P_Lo }}</td><td>W</td></tr>
+    <tr><td>44</td><td>Output inductor DCR losses</td><td>$P_{DCR, L_o} $</td><td>{{ results.P_DCR_Lo }}</td><td>W</td></tr>
+    <tr><td>45</td><td>Inductor Steinmetz specific losses</td><td>$P_{MSE}$</td><td>{{ results.P_MSE_mW_cm3 }}</td><td>mW/cm³</td></tr>
+    <tr><td>46</td><td>AC flux density variation inductor</td><td>$\Delta B_{L_o, ac}$</td><td>{{ results.delta_B_ac_T }}</td><td>T</td></tr>
+    <tr><td>47</td><td>Equivalent frequency Steinmetz</td><td>$f_{eq}$</td><td>{{ results.f_eq_kHz }}</td><td>kHz</td></tr>
+    <tr><td>48</td><td>Inductor core losses</td><td>$P_{core,L_o} $</td><td>{{ results.P_core_Lo }}</td><td>W</td></tr>
+    <tr><td>49</td><td>Total primary switch losses</td><td>$P_{PR} $</td><td>{{ results.P_PR }}</td><td>W</td></tr>
+    <tr><td>50</td><td>Primary conduction losses</td><td>$P_{cond, PR}$</td><td>{{ results.P_cond_PR }}</td><td>W</td></tr>
+    <tr><td>51</td><td>Primary switching losses</td><td>$P_{sw,PR}$</td><td>{{ results.P_sw_PR }}</td><td>W</td></tr>
+    <tr><td>52</td><td>Secondary conduction losses</td><td>$P_{cond, SR} $</td><td>{{ results.P_cond_SR }}</td><td>W</td></tr>
+    <tr><td>53</td><td>Secondary switching losses</td><td>$P_{sw,SR}$</td><td>{{ results.P_sw_SR }}</td><td>W</td></tr>
+    <tr><td>54</td><td>Total secondary switch losses</td><td>$P_{SR}$</td><td>{{ results.P_SR }}</td><td>W</td></tr>
+    <tr><td>55</td><td>Primary transformer resistance losses</td><td>$P_{t_{res,prim}} $</td><td>{{ results.Pt_res_prim }}</td><td>W</td></tr>
+    <tr><td>56</td><td>Secondary transformer resistance losses</td><td>$P_{t_{res,sec}} $</td><td>{{ results.Pt_res_sec }}</td><td>W</td></tr>
+    <tr><td>57</td><td>Peak flux density transformer</td><td>$\hat{B}$</td><td>{{ results.B_hat_T }}</td><td>T</td></tr>
+    <tr><td>58</td><td>Transformer Steinmetz specific losses</td><td>$P_{MSE}$</td><td>{{ results.P_MSE_tr_mW }}</td><td>mW</td></tr>
+    <tr><td>59</td><td>Transformer core losses</td><td>$P_{t_{core}} $</td><td>{{ results.Pt_core }}</td><td>W</td></tr>
+    <tr><td>60</td><td>Total transformer losses</td><td>$P_t$</td><td>{{ results.Pt }}</td><td>W</td></tr>
+    <tr><td>61</td><td>Control circuits power consumption</td><td>$P_{DRV}$</td><td>{{ results.P_DRV }}</td><td>W</td></tr>
+    <tr><td>62</td><td>Snubber losses</td><td>$P_{snubber} $</td><td>{{ results.P_snubber }}</td><td>W</td></tr>
+    <tr><td>63</td><td>Total dissipated losses (Pd)</td><td>$P_d$</td><td>{{ results.Pd_total }}</td><td>W</td></tr>
+    <tr><td>64</td><td>Estimated efficiency</td><td>$\eta \% $</td><td>{{ results.eta_percent }}</td><td>%</td></tr>
+  </tbody>
+</table>
+</section>

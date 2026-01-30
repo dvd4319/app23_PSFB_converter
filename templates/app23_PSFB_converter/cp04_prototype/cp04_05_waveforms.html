@@ -1,0 +1,64 @@
+{% load static %}    
+<p>
+Figure 6.3 presents measurements of the main control waveforms of the converter at two operating points. In Figure 6.2a, the converter operates with a single active module at an output current of 100A, while in Figure 6.2b both modules are active and running in parallel with a combined output current of 200A. In both cases, the input and output voltages are at their nominal values (Vin = 350V, Us = 14V). Due to limitations of the chosen microcontroller, only synchronous parallel operation was implemented. Interleaved operation will be considered in future developments.
+</p>
+
+        
+<div class="section--content">
+    <div class="galerie-magnetic">
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/operare_cu_un_modul_activ_ls_100A.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/operare_cu_un_modul_activ_ls_100A.png' %}" alt="psfb_conv_meas">
+            </a>
+            <figcaption> Operation with a single active module at Is = 100A  </figcaption> 
+        </figure>
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/operare_cu_un_modul_activ_ls_200A.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/operare_cu_un_modul_activ_ls_200A.png' %}" alt="boost_xl6019">
+            </a>
+            <figcaption> Operation with a single active module at Is = 200A   </figcaption> 
+        </figure>
+    </div>
+</div>
+
+<p>
+Examining the results, especially the current signals CS1 and CS2, it is evident that the two converters share the load evenly. This is inferred from the nearly perfect overlap of the two current signals.
+</p>
+
+        
+<div class="section--content">
+    <div class="galerie-magnetic">
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/tranzitie_100to200A.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/tranzitie_100to200A.png' %}" alt="psfb_converter">
+            </a>
+            <figcaption> Transition from 100A to 200A  </figcaption> 
+        </figure>
+        <figure class="figura-magnetic">
+            <a href="{% static './images/power_psfb/tranzitie_200to100A.png'  %}" target="_blank">
+            <img class="imagini-ltspice" src="{% static './images/power_psfb/tranzitie_200to100A.png' %}" alt="boost_xl6019">
+            </a>
+            <figcaption> Transition from 200A to 100A  </figcaption>
+        </figure>
+    </div>
+</div>
+
+<p>
+The dynamic response of the converter to a current step from 100A to 200A is shown in Figure 6.4. As observed, the current sharing during transitions closely matches the static operation under constant load. These results demonstrate that the peak-current-based method for current balancing is effective, as confirmed both by simulations and experimental measurements.
+</p>
+
+<p>
+For Figures 6.3 and 6.4, the following notations are used for the measured signals:
+</p>
+
+<ul>
+    <li><strong>PWM1A to PWM1D:</strong> PWM control signals for the primary bridge of DC-DC module 1;</li>
+    <li><strong>PWM2A to PWM2D:</strong> PWM control signals for the primary bridge of DC-DC module 2;</li>
+    <li><strong>PWM1E, PWM1F:</strong> PWM control signals for the rectifier of DC-DC module 1;</li>
+    <li><strong>PWM2E, PWM2F:</strong> PWM control signals for the rectifier of DC-DC module 2;</li>
+    <li><strong>Up1, Up2:</strong> Voltages on the primary side of the power transformers;</li>
+    <li><strong>CS1, CS2:</strong> Signals from the current transformers;</li>
+    <li><strong>Ut1, Ut2:</strong> Voltages on the secondary side of the power transformers;</li>
+    <li><strong>Us, Is:</strong> Output voltage and output current;</li>
+    <li><strong>Itotal:</strong> Total output current of the converter.</li>
+</ul>

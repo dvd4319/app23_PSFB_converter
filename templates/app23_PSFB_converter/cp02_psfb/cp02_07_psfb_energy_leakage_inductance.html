@@ -1,0 +1,21 @@
+
+<h2>7. Available Energy Calculation in Leakage Inductance</h2>
+
+Energy stored in the parasitic capacitances on the primary side:
+
+$$
+E_{cap} = \frac{1}{2} \left( 2 \cdot C_{oss} + C_{tr} \right) \cdot V_{in, \max}^2 = {{ results.E_cap_uJ}} \mu C 
+$$
+
+<ol>
+    <li>$C_{oss}$ - drain-source parasitic capacitance</li>
+    <li>$C_{tr}$ - estimated parasitic capacitance of the transformer</li>
+    <li>$V_{in, \max}$ - maximum input voltage of the converter</li>
+</ol>
+
+Energy stored in the leakage inductance:
+
+$$
+E_k = \frac{1}{2} \cdot L_k \cdot I_{p_{\min},2}^2 = {{ results.E_k_uJ}} \mu C
+$$
+

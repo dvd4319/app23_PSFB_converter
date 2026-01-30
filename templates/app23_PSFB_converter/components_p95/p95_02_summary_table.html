@@ -1,0 +1,348 @@
+<h2>1. Converter Final Specifications</h2>
+
+<div>
+    <form method="POST" class="power-inductor-form">
+    {% csrf_token %}
+
+    <div class="form-grid">
+        {% for field in form %}
+            <div class="form-field">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <button type="submit">Calculează </button>
+    </form>
+</div>
+
+
+
+
+<table border="1" cellpadding="6" cellspacing="0">
+    <caption>DC-DC Converter Specifications</caption>
+    <thead>
+        <tr>
+            <th>Specification</th>
+            <th>Nominal</th>
+            <th>Range / Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Output Power</td>
+            <td>{{ conv.Pout_max.initial }} W</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Input Voltage</td>
+            <td>{{ conv.Vs_nom.initial }} V </td>
+            <td>{{ conv.Vs_min.initial }} - {{ conv.Vs_max.initial }} V</td>
+        </tr>
+        <tr>
+            <td>Output Voltage</td>
+            <td>{{ conv.Vo_nom.initial }} V </td>
+            <td>{{ conv.Vo_min.initial }}  - {{ conv.Vo_max.initial }} V</td>
+        </tr>
+        <tr>
+            <td>Output Current</td>
+            <td>{{ conv.Io_max.initial }} A </td>
+            <td>0 - {{ conv.Io_max.initial  }} A </td>
+        </tr>
+        <tr>
+            <td>Switching Frequency</td>
+            <td>{{ conv.f.initial }} Hz </td>
+            <td>50 - 200 kHz</td>
+        </tr>
+        <tr>
+            <td>Voltage Ripple</td>
+            <td>{{ conv.ripple_Vo.initial }}</td>
+            <td>(fraction, e.g. 0.01)</td>
+        </tr>
+        <tr>
+            <td>Efficiency</td>
+            <td>{{ conv.efficiency.inital }}</td>
+            <td>Target: 90 - 96%</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+{% comment %} <table border="1" cellpadding="6" cellspacing="0">
+    <tr>
+        <th>Parameter</th>
+        <th>Why It Matters</th>
+    </tr>
+    <tr>
+        <td>
+            \(V_{s,\min} = 250\,\text{Vdc}\)<br>
+            \(V_{s,\max} = 450\,\text{Vdc}\)<br>
+            (Nominal: 350 Vdc)
+        </td>
+        <td>
+            Defines the duty cycle operating range and determines the maximum voltage stress on primary-side switches, transformer insulation, and snubber circuits.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            \(V_{out} = 14\,\text{Vdc}\)<br>
+            (Range: 12–16 Vdc)
+        </td>
+        <td>
+            Sets the feedback reference, impacts duty cycle calculation, transformer turns ratio, and output regulation accuracy.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            \(I_{out,\max} = 200\,\text{A}\)<br>
+            (0–200 A, peak 214 A for 5 s)
+        </td>
+        <td>
+            Critical for sizing output inductors, rectifiers, MOSFETs, PCB copper thickness, connectors, and thermal management.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            \(f_s\) (switching frequency)
+        </td>
+        <td>
+            Influences the size of inductors and capacitors, transformer design, switching losses, and overall efficiency.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Output voltage and current ripple specifications
+        </td>
+        <td>
+            Determines output inductor value, output capacitor technology and ESR, and affects load compatibility and EMI performance.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Efficiency: nominal 93%<br>
+            (90% @ 20 A, 95% @ 100 A, 93% @ 200 A)
+        </td>
+        <td>
+            Drives thermal design, heatsink sizing, cooling strategy, and selection of low-loss MOSFETs, diodes, and magnetic components.
+        </td>
+    </tr>
+</table>
+
+<h3>2.2 Calculation of the Transformer Turns Ratio</h3>
+
+<p>
+The transformer turns ratio is calculated based on the following parameters:
+</p>
+
+<ul>
+    <li>minimum input voltage</li>
+    <li>maximum output voltage</li>
+    <li>maximum allowable duty cycle</li>
+</ul>
+
+<p>
+The first two parameters are part of the converter specifications (based on the HERC 21-3K, adapted to 2.8 kW).
+The transformer turns ratio can be derived from the converter transfer function using the following relation:
+</p>
+
+<p>
+\[
+\frac{N_s}{N_p} = \frac{V_o}{V_{in} \cdot D} \tag{2.1}
+\]
+</p>
+
+<p>
+where \(V_o\) is the output voltage, \(V_{in}\) is the input voltage, \(N_s / N_p\) is the secondary-to-primary turns ratio,
+and \(D\) is the duty cycle (normalized phase shift in a PSFB converter).
+</p>
+
+<p>
+The theoretical maximum duty cycle is 0.5; however, this value cannot be used in practice because it would imply
+instantaneous switching of semiconductor devices. Therefore, a margin (typically about 10%) is reserved for real
+switching transitions. As a result, a <strong>maximum allowable duty cycle of \(D_{max} = 0.45\)</strong> is assumed.
+</p>
+
+<p>
+Solving for the primary-to-secondary turns ratio yields:
+</p>
+
+<p>
+\[
+\frac{N_p}{N_s} = \frac{V_{in} \cdot D_{max}}{V_o} \tag{2.2}
+\]
+</p>
+
+<p>
+For the worst-case condition (maximum \(N_p / N_s\), ensuring regulation at minimum input voltage and maximum output voltage):
+</p>
+
+<p>
+\[
+\frac{N_p}{N_s} = \frac{V_{in,\min} \cdot D_{max}}{V_{o,\max}} =
+\frac{250 \, \text{V} \cdot 0.45}{16 \, \text{V}} = 7.03125 \approx 7.03 \tag{2.3}
+\]
+</p>
+
+<p>
+It is preferable for the transformer turns ratio to be an integer value, as this simplifies winding and promotes
+standardization. Therefore, the <strong>nearest higher integer value, \(N_p / N_s = 8\)</strong>, is selected
+(alternatively 7–8 could be considered, but 8 provides a better margin).
+</p>
+
+<ul>
+    <li>
+        If \(N_p / N_s = 7\) is chosen: minimum regulation is achieved, but with limited margin for voltage drops
+        (winding resistances, leakage inductance, synchronous rectifier voltage drops).
+    </li>
+    <li>
+        <strong>Recommended: \(N_p / N_s = 8\)</strong>. This choice provides additional margin (~14% higher),
+        compensating for real voltage drops (1–2 V on the secondary at high currents around 200 A) and load variations,
+        without significantly sacrificing efficiency.
+        This ratio is commonly used in automotive PSFB converters at these voltage levels
+        (Vin ≈ 400 V → Vout ≈ 14 V implies \(N_s/N_p \approx 25–28\), i.e., \(N_p/N_s = 1:25–28\), rounded to a practical integer).
+    </li>
+</ul>
+
+<p>
+This turns ratio also ensures margin for voltage drops across the resistive elements of the converter,
+including transformer winding resistances, output inductors, and the voltage drop associated with leakage inductance.
+</p>
+
+<p>
+In simulations (LTspice / PSim), verify that the maximum duty cycle (phase shift) remains below 0.45 at
+\(V_{in,\min} = 250\,\text{V}\) and \(V_o = 16\,\text{V}\) using the selected turns ratio.
+If a ratio of 7 is preferred to remain closer to the original design, it can be used; otherwise, 8 is the safer
+and more realistic choice
+
+<h3>2.3 Derivation of the Ideal and Effective Duty Cycle</h3>
+
+<p>
+The ideal duty cycle \(D_{ideal}\) is obtained by neglecting all losses and voltage drops, using the simplified
+transfer relationship of the PSFB topology:
+</p>
+
+<p>
+\[
+D_{ideal} = \frac{V_o \cdot \frac{N_p}{N_s}}{V_{in}} \tag{2.11}
+\]
+</p>
+
+<p>
+Under nominal conditions (\(V_{in} = 350\,\text{V}\), \(V_o = 14\,\text{V}\), \(N_p/N_s = 8\)):
+</p>
+
+<p>
+\[
+D_{ideal,nom} = \frac{14 \cdot 8}{350} = 0.32 \tag{2.12}
+\]
+</p>
+
+<p>
+The effective duty cycle \(D_{effective}\) is higher than the ideal one due to real losses that reduce the
+effectively transferred voltage:
+</p>
+
+<ul>
+    <li>voltage drops across winding resistances and PCB traces</li>
+    <li>voltage drops on MOSFETs (primary-side \(R_{DS(on)}\) and secondary-side synchronous rectifiers)</li>
+    <li>cycle loss due to switching effects (duty loss caused by leakage inductance and dead-time)</li>
+</ul>
+
+<p>
+For conservative design, the total effective voltage drop on the secondary side is estimated at approximately
+2–3 V at full load, based on similar 2–3 kW automotive designs
+(≈1 V on synchronous rectifiers, ≈1 V on windings and inductors, ≈0.5–1 V duty loss).
+</p>
+
+<p>
+Thus, under nominal conditions:
+</p>
+
+<p>
+\[
+D_{effective,nom} \approx \frac{(14 + 2.5) \cdot 8}{350} \approx 0.377 \tag{2.13}
+\]
+</p>
+
+<p>
+The worst-case condition (requiring maximum duty cycle) occurs for:
+</p>
+
+<ul>
+    <li>\(V_{in,\min} = 250\,\text{V}\)</li>
+    <li>\(V_{o,\max} = 16\,\text{V}\)</li>
+    <li>estimated voltage drop ≈ 3 V (maximum losses at full load)</li>
+</ul>
+
+<p>
+\[
+D_{effective,max} \approx \frac{(16 + 3) \cdot 8}{250} = \frac{152}{250} = 0.608 \quad \text{(too high)}
+\]
+</p>
+
+<p>
+<strong>Issue:</strong> With \(N_p/N_s = 8\), the maximum duty cycle exceeds 0.5, which is not safe for PSFB operation.
+</p>
+
+<p>
+<strong>Corrective approach:</strong> Reduce the turns ratio to \(N_p/N_s = 7\) (as in the reference design, adapted to this application).
+</p>
+
+<p>
+With \(N_p/N_s = 7\):
+</p>
+
+<p>
+\[
+D_{effective,max} \approx \frac{(16 + 3) \cdot 7}{250} = \frac{133}{250} = 0.532 \quad \text{(still high)}
+\]
+</p>
+
+<p>
+This remains risky. In real industrial designs (e.g., HERC, Bosch), lower turns ratios
+(6:1 or 6.5:1) are commonly used, combined with optimized leakage inductance for ZVS
+and reduced losses through planar transformers and multilayer PCBs.
+</p>
+
+<p>
+<strong>Final realistic design choice (recommended):</strong><br>
+Select \(N_p/N_s = 6\), which is very common in commercial 3 kW, 400 V → 14 V converters.
+</p>
+
+<p>
+Then:
+</p>
+
+<ul>
+    <li>\[
+        D_{ideal,nom} = \frac{14 \cdot 6}{350} = 0.24
+    \]</li>
+    <li>\[
+        D_{effective,max} \approx \frac{(16 + 3) \cdot 6}{250} = \frac{114}{250} = 0.456
+    \]</li>
+</ul>
+
+<p>
+This result is optimal: the maximum duty cycle remains below 0.48, providing sufficient margin
+for wide-load ZVS operation, dead-time, and parameter variations.
+</p>
+
+<p>
+<strong>Design conclusion:</strong>
+</p>
+
+<ul>
+    <li>Use \(N_p/N_s = 6\) (or 6.5 as a compromise, if desired).</li>
+    <li>Explicitly show that \(D_{ideal}\) was calculated, total voltage drops were realistically estimated
+        (≈2.5 V nominal, ≈3–3.5 V worst-case based on similar datasheets), and the turns ratio was selected
+        such that \(D_{effective,max} \leq 0.45–0.48\).</li>
+    <li>Avoid overly complex analytical formulas; a global loss estimation is more accurate and appropriate
+        at the pre-design stage.</li>
+</ul>
+
+<p>
+This approach is honest, realistic, and aligned with industrial design practice.
+</p> {% endcomment %}

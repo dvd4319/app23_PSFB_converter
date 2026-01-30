@@ -1,0 +1,72 @@
+{% load static %}     
+
+<p>
+Figure 6.6 shows the infrared thermal map of the converter operating at nominal conditions (Us = 14V, Is = 230A) with both modules active.
+</p>
+
+ 
+      <div class="section--content">
+                <figure class="figura-magnetic">
+                    <a href="{% static './images/power_psfb/scanare_termica.png'  %}" target="_blank">
+                    <img class="imagini-ltspice" src="{% static './images/power_psfb/scanare_termica.png' %}" alt="psfb_termica">
+                    </a>
+                    <figcaption> Thermal Scan of the Converter at Nominal Load (Us = 14V, Is = 230A)  </figcaption>
+                </figure>
+        </div>
+
+<p>
+The analysis indicates a generally uniform temperature distribution across the converter's power sections. At this operating point, the primary stage exhibits slightly higher temperatures compared to other areas of the converter. The maximum temperature recorded on the primary stage is 103°C, located on one of the power switches of module one. A detailed list of temperatures across the converter sections is provided in Table 6.1.
+</p>
+
+
+<table border="1">
+    <caption> Component Temperatures</caption>
+    <thead>
+        <tr>
+            <th>Component</th>
+            <th>Module 1</th>
+            <th>Module 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Primary Bridge</td>
+            <td>103 °C</td>
+            <td>97 °C</td>
+        </tr>
+        <tr>
+            <td>Transformer Core</td>
+            <td>62 °C</td>
+            <td>62 °C</td>
+        </tr>
+        <tr>
+            <td>Transformer Windings</td>
+            <td>96.7 °C</td>
+            <td>93.9 °C</td>
+        </tr>
+        <tr>
+            <td>Rectifier</td>
+            <td>85.3 °C</td>
+            <td>78.6 °C</td>
+        </tr>
+        <tr>
+            <td>Output Inductors</td>
+            <td>84.1 °C</td>
+            <td>83.2 °C</td>
+        </tr>
+        <tr>
+            <td>Microcontroller</td>
+            <td>63 °C</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Heatsink</td>
+            <td>43 °C</td>
+            <td>-</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+Based on the measurements in the above Table, the temperatures on Module 1 are slightly higher than those on Module 2. This temperature difference is mainly due to the placement on the heatsink, which provides better cooling for Module 2, as well as the aging of the material used as the thermal interface.
+</p>
