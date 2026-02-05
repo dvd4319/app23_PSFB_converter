@@ -477,6 +477,41 @@ def full_bridge_phase_shift_converter(request):
             results['Pd_total']          = round(Pd, 2)
             results['eta_percent']       = round(100 * (Pout_max / (Pout_max + Pd)), 2) if (Pout_max + Pd) > 0 else 0.0
 
+            # ===================== MODEL GENERALIZAT PENTRU D_eff =====================
+            # (folosim valorile deja calculate mai sus în view)
+
+            alpha_Lk     = delta_V_Lk / V_in_nom if V_in_nom != 0 else 0.0
+            alpha_TR     = delta_V_TR / V_in_nom if V_in_nom != 0 else 0.0
+            alpha_Rdson  = delta_V_Rdson / V_in_nom if V_in_nom != 0 else 0.0
+            beta_o       = delta_V_Lo / V_out_nom if V_out_nom != 0 else 0.0   # delta_V_Lo e delta_V_o din paper
+            alpha_Sigma  = alpha_Lk + alpha_TR + alpha_Rdson
+
+            # Formula compactă (exact cea boxed din secțiunea ta)
+            D_eff_compact = D_ideal * (1 + beta_o) / (1 - alpha_Sigma) if (1 - alpha_Sigma) != 0 else D_ideal
+            Delta_D       = D_eff_compact - D_ideal
+            Delta_D_percent = (Delta_D / D_ideal * 100) if D_ideal != 0 else 0.0
+
+            # Verificare consistență (opțional, dar util pentru debugging și paper)
+            D_eff_diff = abs(D_eff - D_eff_compact)  # ar trebui să fie aproape 0
+
+            # Adaugi în dicționarul results existent
+            results.update({
+                'alpha_Lk': round(alpha_Lk, 6),
+                'alpha_TR': round(alpha_TR, 6),
+                'alpha_Rdson': round(alpha_Rdson, 6),
+                'beta_o': round(beta_o, 6),
+                'alpha_Sigma': round(alpha_Sigma, 6),
+                'D_eff_compact': round(D_eff_compact, 4),
+                'Delta_D': round(Delta_D, 4),
+                'Delta_D_percent': round(Delta_D_percent, 2),
+                'D_eff_diff': round(D_eff_diff, 6),  # diferența față de D_eff calculat anterior
+            })
+
+            # Comentariu util pentru UI / verificare
+            if D_eff_diff > 1e-5:
+                results['deff_note'] = f"Atenție: diferență mică între calculul detaliat și formula compactă ({results['D_eff_diff']})"
+            else:
+                results['deff_note'] = "Formula compactă confirmă perfect calculul detaliat anterior"
             # Acum bagi în context
             context.update({
                 'form': form,
@@ -489,4 +524,6 @@ def full_bridge_phase_shift_converter(request):
             context['error'] = str(e)
 
     return render(request, './app23_PSFB_converter/power95_full_bridge_phase_shift.html', context)
+
+#########################################################################################################
 

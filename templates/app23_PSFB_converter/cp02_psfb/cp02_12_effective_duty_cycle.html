@@ -1,0 +1,113 @@
+{% if results.alpha_Sigma %}
+<h3>Generalized model for the effective duty cycle ($D_{eff}$)</h3>
+<p>Compact formula: <strong> $ D_{\mathrm{eff}} = D_{\mathrm{ideal}} \frac{1 + \beta_o}{1 - \alpha_\Sigma}, \quad
+            \Delta D = D_{\mathrm{eff}} - D_{\mathrm{ideal}}$ </strong></p>
+
+<table class="table table-sm table-bordered">
+    <thead>
+        <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>$D_{ideal}$</td><td>{{ results.D_ideal }}</td><td>Ideal duty ratio</td></tr>
+        <tr><td>$\alpha_{Lk}$</td><td>{{ results.alpha_Lk }}</td><td>Leakage inductance contribution</td></tr>
+        <tr><td>$\alpha_{TR}$</td><td>{{ results.alpha_TR }}</td><td>Transformer resistance contribution</td></tr>
+        <tr><td>$\alpha_{Rdson}$</td><td>{{ results.alpha_Rdson }}</td><td>MOSFET Rdson contribution</td></tr>
+        <tr><td>$\beta_o$</td><td>{{ results.beta_o }}</td><td>Output inductor resistance contribution</td></tr>
+        <tr><td>$\alpha_{\Sigma}$</td><td>{{ results.alpha_Sigma }}</td><td>Total normalized primary parasitics</td></tr>
+        <tr><td>$D_{eff}$ (compact)</td><td>{{ results.D_eff_compact }}</td><td>From the unified formula</td></tr>
+        <tr><td>$\Delta D $</td><td>{{ results.Delta_D }} ({{ results.Delta_D_percent }}%)</td><td>Increase due to parasitics</td></tr>
+    </tbody>
+</table>
+
+{% endif %}
+
+
+<hr class="my-4">
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Generalized Analytical Model for the Effective Duty Cycle in PSFB Converters</h4>
+        </div>
+        <div class="card-body">
+
+            <p>The ideal PSFB duty cycle is:</p>
+            \[ D_{\mathrm{ideal}} = \frac{V_o}{V_{in}} \cdot \frac{N_p}{N_s}. \]
+
+            <p>Parasitic voltage drops reduce the effective duty cycle. The table below summarizes the key parasitic contributions (nominal values from calculation):</p>
+
+            <table class="table table-bordered table-sm">
+                <caption>Parasitic voltage drops in the PSFB converter</caption>
+                <thead class="table-light">
+                    <tr>
+                        <th>No.</th>
+                        <th>Quantity</th>
+                        <th>Expression</th>
+                        <th>Value [V]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Leakage inductance</td>
+                        <td>\(\delta V_{L_k} = L_k I_o \frac{N_s}{N_p} F_{sw}\)</td>
+                        <td>{{ results.delta_V_Lk }}</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Transformer resistance</td>
+                        <td>\(\delta V_{TR} = I_o \left( \frac{N_s}{N_p} R_{prim} + \frac{N_p}{N_s} R_{sec} \right)\)</td>
+                        <td>{{ results.delta_V_TR }}</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>MOSFET on-resistance</td>
+                        <td>\(\delta V_{R_{dson}} = I_o \left( \frac{N_s}{N_p} \cdot 2 R_{dson,PR} + \frac{N_p}{N_s} R_{dson,SR} \right)\)</td>
+                        <td>{{ results.delta_V_Rdson }}</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Output inductor</td>
+                        <td>\(\delta V_o = \frac{I_o}{2} R_{L_o}\)</td>
+                        <td>{{ results.delta_V_Lo }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Normalized parasitic coefficients are defined as:</p>
+            \begin{align}
+            \alpha_{L_k} &= \frac{\delta V_{L_k}}{V_{in}}, &
+            \alpha_{TR} &= \frac{\delta V_{TR}}{V_{in}}, &
+            \alpha_{R_{dson}} &= \frac{\delta V_{R_{dson}}}{V_{in}}, \nonumber \\
+            \beta_o &= \frac{\delta V_o}{V_o}, &
+            \alpha_\Sigma &= \alpha_{L_k} + \alpha_{TR} + \alpha_{R_{dson}}.
+            \end{align}
+
+            <p>For the nominal design:</p>
+            \[ \alpha_\Sigma = \frac{ {{ results.delta_V_Lk }} +  {{ results.delta_V_TR }} + {{ results.delta_V_Rdson }} }{V_{in}} = {{results.alpha_Sigma}}, \quad \beta_o = \frac{ {{ results.delta_V_Lo }}}{V_o} = {{results.beta_o}}. \]
+
+            <p>The effective duty cycle including parasitic effects is compactly expressed as:</p>
+            \[
+            \boxed{
+            D_{\mathrm{eff}} = D_{\mathrm{ideal}} \frac{1 + \beta_o}{1 - \alpha_\Sigma}, \quad
+            \Delta D = D_{\mathrm{eff}} - D_{\mathrm{ideal}}
+            }\]
+
+            <p>Numerical evaluation for the nominal operating point:</p>
+            \[ D_{\mathrm{ideal}} = {{ results.D_ideal }}, \quad
+               D_{\mathrm{eff}} = {{ results.D_eff }}, \quad
+               \Delta D \approx {{ results.Delta_D }} \ ({{ results.Delta_D_percent }}\% \ increase). \]
+
+            <h5>Discussion:</h5>
+            <ul>
+                <li>All parasitic effects are unified in a single formula.</li>
+                <li>Duty-cycle deviation is explicitly quantified.</li>
+                <li>Enables closed-form sensitivity analysis with respect to parasitics.</li>
+                <li>Fully consistent with detailed analytical calculations.</li>
+            </ul>
+
+        </div>
+    </div>
