@@ -10,14 +10,14 @@
             <p><a style="color: var(--primary-900);" href="{% url 'home' %}">Go to main page</a></p>
         </div>
         
-        <div class="section--content">
+        {% comment %} <div class="section--content">
             <figure class="figura-magnetic">
                 <a href="{% static './images/power_psfb/psfb_schematic_electric.png'  %}" target="_blank">
                 <img class="imagini-ltspice" src="{% static './images/power_psfb/psfb_schematic_electric.png' %}" alt="boost_xl6019">
                 </a>
                 <!-- <figcaption> Schematic - Boost Converter (XL6019)   </figcaption> -->
             </figure>
-        </div>
+        </div> {% endcomment %}
 
 
         {% comment %} <div class="section--content">
@@ -36,15 +36,15 @@
                 </figure>
             </div>
         </div> {% endcomment %}
-        <h1>  Introduction  </h1>
+        <h3>  Introduction  </h3>
         {% include './cp01_psfb_toloplogies/cp01_00_capitolul01.html'%}
-        <h1>  1. Dimensioning of power components and efficiency calculation </h1>
+        <h3>  1. Dimensioning of power components and efficiency calculation </h3>
         {% include './cp02_psfb/cp02_00_psfb_capitolul02.html'%}
-        <h1> 2. Circuit simulations </h1>
+        <h3> 2. Circuit simulations </h3>
         {% include './cp02_simulation_psfb/cp02_00_simulations.html'%}
-        <h1>  3. Magnetic design </h1>
+        <h3>  3. Magnetic design </h3>
         {% include './cp03_magnetic_design/cp03_00_magnetic_design.html'%}
-        <h1>4. Prototype Considerations </h1>
+        <h3>4. Prototype Considerations </h3>
         {% include './cp04_prototype/cp04_00_prototype.html'%}
     </div>
 {% endblock %}

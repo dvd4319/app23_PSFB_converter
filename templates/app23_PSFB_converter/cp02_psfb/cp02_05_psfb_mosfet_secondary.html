@@ -56,6 +56,21 @@ $$
 
 <h3>Synchronous Rectifier Power Switch Selection</h3>
 
-<p>[Aici poți adăuga textul sau tabelul de selecție a MOSFET-urilor sincron dacă ai]</p>
+<p>The minimum parameters for the nominal current of the power static switch are determined:</p>
+
+<ul>
+  <li><strong>$ I_{MAX} = 101.535 $ A </strong> (maximum current)</li>
+  <li><strong>$ I_{rms} = 68.322 $ A</strong> (RMS current)</li>
+</ul>
+
+<p>At these current values, although a single power static switch could theoretically handle the RMS current ($68.3$ A is below the MOSFET's 81 A nominal rating @ 100°C), <strong>using two power static switches in parallel is recommended</strong> to further reduce conduction losses and provide a safety margin for peak currents. A suitable static switch for this application is, for example, <strong>AUIRF7669L2</strong> from <strong>Infineon Technologies</strong>. This MOSFET-type power static switch has a compact size, fast switching times, and a low drain-source on-resistance ($R_{\text{DS(on)}} = 4.4~\text{m}\Omega \text{ at } T_j = 100^\circ\text{C}$ ).</p>
+
+<p>According to the datasheet, it has a drain-source nominal voltage of 100 V and a nominal current of 81 A at a case temperature of $100^\circ\text{C}$. <p>Datasheet: <a href="https://eu.mouser.com/datasheet/3/70/1/auirf7669l2.pdf" target="_blank">AUIRF7669L2 MOSFET - Infineon Technologies</a></p>
 
 
+Since the peak current ($101.5$ A) exceeds the MOSFET's nominal current, <strong>two devices will be connected in parallel on each branch of the rectifier</strong>. Thus, the rectifier circuit will contain a total of four power static switches, ensuring that each device shares the current and operates well within safe limits.</p>
+
+<p>An important advantage of this power static switch is its high junction operating temperature of 175°C. This provides increased flexibility in cooling, especially since the device has two cooling surfaces that can be used simultaneously. The bottom of the package is cooled directly by the PCB, while a heatsink can be attached to the top surface.</p>
+
+
+<p><strong>Note:</strong> This MOSFET was selected based on the reference parameters. If these parameters change, a transistor suitable for the updated specifications should be chosen.</p>

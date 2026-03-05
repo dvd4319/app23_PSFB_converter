@@ -66,4 +66,29 @@ $$
 
 <h3>Primary-Side Power Switch Selection</h3>
 
-<p>[Aici poți adăuga selecția MOSFET-urilor primare dacă ai date]</p>
+<p>Based on the results obtained, the power static switches in the primary switching circuit must be able to withstand a voltage of at least <strong>500 V</strong> at their terminals (420 V + transient voltages) and support a minimum peak and RMS current of:</p>
+
+<ul>
+  <li><strong>I<sub>max_switch</sub> = 10.039 A</strong> </li>
+  <li><strong>I<sub>rms_switch</sub> = 6.46 A</strong> </li>
+</ul>
+
+<p>A MOSFET device optimized for this type of application will be selected. One suitable device is <strong>IPB65R110CFDA</strong>, based on <strong>CoolMOS technology</strong>, manufactured by <strong>Infineon Technologies</strong></p>
+
+<p>Infineon Technologies, <em>IPB65R110CFDA CoolMOS™ Power MOSFET Datasheet</em>. 
+<a href="https://www.infineon.com/assets/row/public/documents/24/49/infineon-ipx65r110cfda-ds-en.pdf" target="_blank">
+https://www.infineon.com/assets/row/public/documents/24/49/infineon-ipx65r110cfda-ds-en.pdf
+</a>
+</p>
+
+<p>According to the specifications, this power static switch has a nominal voltage of <strong>650 V</strong>, a drain-source on-resistance of <strong>180 mΩ</strong>, and a nominal current of <strong>19.7 A</strong> at a case temperature of <strong>100°C</strong>, which is more than sufficient for this application.</p>
+
+<p>This device has several important characteristics for the <strong>phase-shift full-bridge topology</strong>, namely:</p>
+
+<ul>
+  <li>ultra-fast intrinsic diode;</li>
+  <li>low effective drain-source capacitance;</li>
+  <li>very low total gate charge;</li>
+  <li>low drain-source on-resistance;</li>
+  <li>short switching times.</li>
+</ul>

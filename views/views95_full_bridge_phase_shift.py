@@ -360,7 +360,6 @@ def full_bridge_phase_shift_converter(request):
             print(f"Pd: {Pd:3f} W") # Pd = 108.6W W
 
             # ===================== REZULTATE =====================
-            # ... după toate calculele tale existente ...
 
             # Colectăm TOATE valorile printate într-un dicționar
             results = {}
